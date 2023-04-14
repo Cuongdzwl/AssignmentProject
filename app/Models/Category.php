@@ -9,7 +9,11 @@ use App\Models\Product;
 class Category extends Model
 {
     use HasFactory;
-    protected $table ='categories';
-    protected $fillable = ['category_name','description'];
+    protected $table = 'categories';
+    protected $fillable = ['category_name', 'description'];
 
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'category_product')->withTimestamps();
+    }
 }
