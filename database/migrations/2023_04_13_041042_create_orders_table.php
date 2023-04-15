@@ -15,6 +15,11 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_ID');
+            $table->unsignedDecimal('total',15,3);
+            $table->string('status');///mess to know this order it's complete, in transit , or on hold....../
+            ///foreign key
+            $table->foreign('user_ID')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
