@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Management;
 
 use App\Http\Controllers\Controller;
+
 use Illuminate\Http\Request;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
@@ -15,7 +16,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::latest()->paginate(16);
+        $products = Product::latest()->paginate(5);
         return ProductResource::collection($products); 
     }
 
@@ -27,14 +28,28 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        // Validation
         $request->validate([
             'name' => 'required|string|max:255',
-            'desc' => 'required'
+            'description' => 'required',
+            'count' => 'required|integer',
+            'image' => 'required|image|mimes:jpg,png,gif,jpeg,svg|max:2048',
+            'price' => 'required|unsigned|double'
         ]);
-        $product = Product::create([
-            'name' => $request->name,
-            'description' => $request->desc,
-        ]);
+        // Fetch the product data
+        $product = $request->all();
+
+        // Edit the product image's path
+        if ($image = $request->file('image')) {
+            $destianationPath = 'images/';
+            $profileImage = date('Ymdis') . '.' . $image->getClientOriginalName();
+            $image->move($destianationPath, $profileImage);// Move the image to the destination directory
+            $product['image'] = $profileImage;
+
+            Product::created($product);
+        }
+        
+        // Return success response
         return response()->json([
             'success' => true,
             'message' => 'Product created',
@@ -50,8 +65,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        $product = Product::find($product->id);
-        return ProductResource::show($product);
+        return new ProductResource($product);
     }
 
     /**
@@ -63,15 +77,24 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // Validation 
         $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'required'
+            'description' => 'required',
+            'count' => 'required|integer',
+            'image' => 'required|image|mimes:jpg,png,gif,jpeg,svg|max:2048',
+            'price' => 'required|unsigned|double'
         ]);
+
         $product = Product::find($id);
+
         if ($product) {
             $product->update([
-                'name' => $request->name,
-                'description' => $request->desc,
+                'name' => 'required|string|max:255',
+                'description' => 'required',
+                'count' => 'required|integer',
+                'image' => 'required|image|mimes:jpg,png,gif,jpeg,svg|max:2048',
+                'price' => 'required|unsigned|double'
             ]);
             return response()->json([
                 'success' => true,

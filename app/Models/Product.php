@@ -9,8 +9,10 @@ use App\Models\Category;
 class Product extends Model
 {
     use HasFactory;
+
     protected $table = 'products';
-    protected $fillable = ['name','price','count'
-    ,'description'];
+    protected $primaryKey = 'id';
+    
+    protected $fillable = ['name','price','count','image','description'];
    
 }
