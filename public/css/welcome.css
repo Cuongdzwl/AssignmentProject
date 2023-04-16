@@ -50,5 +50,5 @@ body {
 .navbar{
   position: relative;
   z-index: 3;
-  background: transparent !important;
+  /* background: transparent !important; */
 }
