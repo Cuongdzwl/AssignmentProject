@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Sign-in</title>
+  <title>Sign in</title>
   <link rel="stylesheet" href="css/login.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
@@ -13,8 +13,8 @@
 </head>
 
 <body>
-  <div class="icon">
-    <box-icon color='dark' name='diamond'></box-icon>
+  <div>
+    <a href="{{ url('/') }}"><i class='bx bx-diamond'></i></a>
   </div>
   <div class="container my-5 py-5">
     <div class="row justify-content-center">
