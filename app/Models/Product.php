@@ -11,9 +11,10 @@ use App\Models\Cart;
 class Product extends Model
 {
     use HasFactory;
+
     protected $table = 'products';
     protected $fillable = [
-        'name','quatity', 'price', 'description'
+        'name','quantity','image', 'price', 'description'
     ];
 
     public function categories()

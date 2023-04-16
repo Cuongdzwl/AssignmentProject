@@ -13,7 +13,8 @@ class Order extends Model
 
     protected $table = 'orders';
 
-    protected $fillable = 'user_ID,total,status';
+    protected $fillable = ['user_ID','total','status'];
+
 
     public function products()
     {

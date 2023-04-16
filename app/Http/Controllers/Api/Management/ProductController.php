@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Api\Management;
 
 use App\Http\Controllers\Controller;
+
 use Illuminate\Http\Request;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
+use Illuminate\Support\Facades\Validator;
+
 class ProductController extends Controller
 {
     /**
@@ -15,8 +18,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::latest()->paginate(16);
-        return ProductResource::collection($products); 
+        $products = Product::latest()->paginate(12);
+        return ProductResource::collection($products);
     }
 
     /**
@@ -25,64 +28,109 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Product $product, Request $request)
     {
-        $request->validate([
+        // Validation
+        $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'desc' => 'required'
-        ]);
-        $product = Product::create([
-            'name' => $request->name,
-            'description' => $request->desc,
-        ]);
-        return response()->json([
-            'success' => true,
-            'message' => 'Product created',
-            'data' => $product
-        ], 201);
+            'description' => 'required',
+            'quantity' => 'required|numeric|integer',
+            'image' => 'required|image|mimes:jpg,png,gif,jpeg,svg|max:2048',
+            'price' => 'required|decimal:0,5'
+            ]);
+            if ($validator->fails()) {
+                return response()->json([
+                'success' => false,
+                'message' => 'Product creating failed',
+                'error' => $validator->messages()
+            ], 201);
+        }
+        
+        // Fetch the product data
+        $product = $request->all();
+        $product['price'] = round($product['price'], 5);
+
+        // Edit the product image's path
+        if ($image = $request->file('image')) {
+            $destianationPath = 'images/';
+            $profileImage = date('Ymdis') . '.' . $image->getClientOriginalName();
+            $image->move($destianationPath, $profileImage); // Move the image to the destination directory
+            $product['image'] = $profileImage;
+
+            Product::create($product);
+
+            // Return success response
+            return response()->json([
+                'success' => true,
+                'message' => 'Product created',
+                'data' => $product
+            ], 201);
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Produc  $product
      * @return \Illuminate\Http\Response
      */
     public function show(Product $product)
     {
-        $product = Product::find($product->id);
-        return ProductResource::show($product);
+        return new ProductResource($product);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Product $product)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required'
+        // Validation 
+        $validator = Validator::make($request->all(), [
+            'name' => 'string|max:255',
+            'description' => '',
+            'quantity' => 'numeric|integer',
+            'image' => 'image|mimes:jpg,png,gif,jpeg,svg|max:2048',
+            'price' => 'decimal:0,5'
         ]);
-        $product = Product::find($id);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Product updating failed',
+                'error' => $validator->messages()
+            ], 201);
+        }
+        $newProduct = $request->all();
+        $newProduct['price'] = round($newProduct['price'], 5);
+
+        $product = Product::find($product->id);
+
+        if ($image = $request->file('image')) {
+            $destianationPath = 'images/';
+            $profileImage = date('Ymdis') . '.' . $image->getClientOriginalName();
+            $image->move($destianationPath, $profileImage);
+            $newProduct['image'] = $profileImage;
+        } else {
+            unset($newProduct['image']);
+        }
+
         if ($product) {
-            $product->update([
-                'name' => $request->name,
-                'description' => $request->desc,
-            ]);
+            $product->update($newProduct);
             return response()->json([
                 'success' => true,
                 'message' => 'Product updated',
                 'data' => $product
             ], 200);
         }
+
         return response()->json([
             'success' => false,
             'message' => 'Product not found',
-        ], 404);     
+        ], 404);
     }
 
     /**
@@ -94,15 +142,15 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         if ($product) {
-            $product->delete();    
+            $product->delete();
             return response()->json([
                 'success' => true,
-                'message' => 'Post deleted',
+                'message' => 'Product deleted',
             ], 200);
         }
         return response()->json([
             'success' => false,
-            'message' => 'Post not found',
-        ], 404); 
+            'message' => 'Product not found',
+        ], 404);
     }
 }
