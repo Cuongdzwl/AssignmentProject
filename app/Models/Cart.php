@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Product;
-use App\Models\USer;
+use App\Models\User;
 
 class Cart extends Model
 {
@@ -16,7 +16,7 @@ class Cart extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'cart_product')->withTimestamps()->withPivot('quatity', 'price', 'img');
+        return $this->belongsToMany(Product::class, 'cart_product')->withTimestamps()->withPivot('quantity', 'price', 'img');
     }
 
     public function user(){
