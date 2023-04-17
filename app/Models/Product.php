@@ -24,10 +24,10 @@ class Product extends Model
 
     public function orders()
     {
-        return $this->belongsToMany(Order::class, 'order_product')->withTimestamps()->withPivot('quantity', 'price');
+        return $this->belongsToMany(Order::class, 'order_product')->withTimestamps()->withPivot('quantity');
     }
     public function carts()
     {
-        return $this->belongsToMany(Cart::class, 'order_product')->withTimestamps()->withPivot('quantity', 'price', 'img');
+        return $this->belongsToMany(Cart::class, 'order_product')->withTimestamps()->withPivot('quantity');
     }
 }
