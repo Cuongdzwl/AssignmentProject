@@ -12,7 +12,8 @@ class Cart extends Model
     use HasFactory;
 
     protected $table = 'carts';
-    protected $fillable = 'user_ID';
+    protected $fillable = ['user_ID'];
+
 
     public function products()
     {
