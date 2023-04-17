@@ -11,10 +11,10 @@
         "php": "^8.0",
         "fruitcake/laravel-cors": "^2.0.5",
         "guzzlehttp/guzzle": "^7.2",
+        "laravel/breeze": "^1.19",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^2.14",
         "laravel/tinker": "^2.7",
-        "laravel/ui": "^4.2",
         "laraveldaily/laravel-permission-ui": "^0.1.4",
         "spatie/laravel-permission": "^5.10"
     },
