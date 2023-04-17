@@ -1,7 +1,10 @@
 <?php
 
+
 use App\Http\Controllers\Api\Management\CategoryProductController;
 use App\Http\Controllers\Api\Management\OrderController;
+use App\Http\Controllers\Api\CartController;
+use App\Http\Controllers\Api\Management\CategoryController;
 use App\Http\Controllers\Api\Management\ProductController;
 use App\Http\Controllers\Api\UserController;
 use App\Models\CategoryProduct;
@@ -27,3 +30,6 @@ Route::apiResource('users',UserController::class);
 Route::apiResource('products',ProductController::class);
 Route::apiResource('categoryProducts',CategoryProductController::class);
 Route::apiResource('orders',OrderController::class);
+Route::apiResource('categories',CategoryController::class);
+Route::apiResource('cart',CartController::class);
+

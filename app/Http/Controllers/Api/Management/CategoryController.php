@@ -60,9 +60,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Category $category)
     {
-        return CategoryResource::show($id);
+        return new CategoryResource($category);
     }
 
     /**
@@ -88,7 +88,7 @@ class CategoryController extends Controller
         }
         $category = Category::find($category->id);
 
-        if($category){
+        if ($category) {
             $category->update($request->all());
             // Return success response
             return response()->json([
