@@ -37,15 +37,15 @@ class ProductController extends Controller
             'quantity' => 'required|numeric|integer',
             'image' => 'required|image|mimes:jpg,png,gif,jpeg,svg|max:2048',
             'price' => 'required|decimal:0,5'
-            ]);
-            if ($validator->fails()) {
-                return response()->json([
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
                 'success' => false,
                 'message' => 'Product creating failed',
                 'error' => $validator->messages()
-            ], 201);
+            ]);
         }
-        
+
         // Fetch the product data
         $product = $request->all();
         $product['price'] = round($product['price'], 5);
@@ -88,7 +88,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        // Validation 
+        // Validation
         $validator = Validator::make($request->all(), [
             'name' => 'string|max:255',
             'description' => '',

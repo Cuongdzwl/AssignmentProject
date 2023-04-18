@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Api\Management;
 
 use App\Http\Controllers\Controller;
-use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Models\OrderProduct;
 
-class OrderController extends Controller
+class OrderProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +16,10 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $order = Order::all();
+        $orderProduct = OrderProduct::all();
         return response()->json([
             'success' => true,
-            'data' => $order,
+            'date' => $orderProduct
         ], 200);
     }
 
@@ -32,21 +32,21 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'user_ID' => 'required|exists:users,id',
-            'total' => 'required|decimal:0,5',
-            'status' => 'required|string|max:255'
+            'product_ID' => 'required|exists:products,id',
+            'order_ID' => 'required|exists:orders,id',
+            'quantity' => 'numeric|integer'
         ]);
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
-                'message' => 'Ordering create failed.',
+                'message' => 'Creating order product failed.',
                 'error' => $validator->messages()
             ]);
         }
-        $order = Order::create($request->all());
-        return response()->json([
+        $orderProduct = OrderProduct::create($request->all());
+        return response([
             'success' => true,
-            'data' => $order,
+            'date' => $orderProduct
         ], 201);
     }
 
@@ -56,10 +56,11 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Order $order)
+    public function show(OrderProduct $orderProduct)
     {
-        return response()->json([
-            'data' => $order,
+        return response([
+            'success' => true,
+            'date' => $orderProduct
         ], 200);
     }
 
@@ -70,9 +71,9 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Order $order)
+    public function update(Request $request, OrderProduct $orderProduct)
     {
-        
+        //
     }
 
     /**
@@ -81,8 +82,8 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Order $order)
+    public function destroy(OrderProduct $orderProduct)
     {
-
+        //
     }
 }
