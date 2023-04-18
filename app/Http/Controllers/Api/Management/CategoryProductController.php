@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\Management;
 use App\Http\Controllers\Controller;
 use App\Models\CategoryProduct;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Validator;
 class CategoryProductController extends Controller
 {
     /**
@@ -18,7 +18,7 @@ class CategoryProductController extends Controller
         $categoryProducts = CategoryProduct::all();
         return response()->json([
             'success' =>true,
-            'date' => $categoryProducts,
+            'data' => $categoryProducts,
         ], 200);
     }
 
@@ -30,11 +30,22 @@ class CategoryProductController extends Controller
      */
     public function store(Request $request)
     {
-
+        $validator = Validator::make($request->all(),[
+            'cat_ID' => 'required|exists:categories,id',
+            'product_ID' => 'required|exists:products,id',
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+            'success' => false,
+            'message' => 'The selected cat ID or product ID is invalid.',
+            'error' => $validator->messages()
+        ], 201);
+    }
         $categoryProduct = CategoryProduct::create($request->all());
         return response()->json([
-            'date' => $categoryProduct,
-        ]);
+            'success' => true,
+            'data' => $categoryProduct,
+        ],200);
     }
 
     /**
@@ -45,8 +56,9 @@ class CategoryProductController extends Controller
      */
     public function show(CategoryProduct $categoryProduct)
     {
+
         return response()->json([
-            'date' => $categoryProduct,
+            'data' => $categoryProduct,
         ], 200);
     }
 
@@ -59,7 +71,23 @@ class CategoryProductController extends Controller
      */
     public function update(Request $request, CategoryProduct $categoryProduct)
     {
+        $validator = Validator::make($request->all(),[
+            'cat_ID' => 'exists:categories,id',
+            'product_ID' => 'exists:products,id',
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+            'success' => false,
+            'message' => 'The selected cat ID or product ID is invalid.',
+            'error' => $validator->messages()
+        ], 201);
+    }
+        $categoryProduct = CategoryProduct::find($categoryProduct->id);
         $categoryProduct->update($request->all());
+        return response()->json([
+            'success' => true,
+            'data' => $categoryProduct,
+        ],200);
     }
 
     /**
@@ -70,9 +98,16 @@ class CategoryProductController extends Controller
      */
     public function destroy(CategoryProduct $categoryProduct)
     {
-        $categoryProduct->delete();
+        if($categoryProduct->delete()){
+            return response()->json([
+                'success' => true,
+                'message' => 'Category Product deleted',
+            ],200);
+        }
+
         return response()->json([
-            'message' => 'Category Product deleted',
-        ]);
+            'success' => false,
+            'message' => 'Category not found',
+        ], 404);
     }
 }
