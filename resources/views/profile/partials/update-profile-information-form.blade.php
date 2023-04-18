@@ -37,10 +37,10 @@
         </div>
         <div>
             <x-input-label for="gender" :value="__('Gender')" />
-            <select id="gender" name="gender" autocomplete="gender" :value="old('gender', $user->gender)"
+            <select id="gender" name="gender" autocomplete="gender"
                 class="mt-1 block w-50 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
-                <option value="0">Male</option>
-                <option value="1">Female</option>
+                <option @selected(old('gender', $user->gender) == 0) value="0">Male</option>
+                <option @selected(old('gender', $user->gender) == 1) value="1">Female</option>
             </select>
             <x-input-error class="mt-2" :messages="$errors->get('gender')" />
         </div>
