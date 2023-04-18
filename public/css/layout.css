@@ -1,17 +1,24 @@
 body {
   margin-top: 60px !important;
   position: relative;
+  overflow-x: hidden;
 }
 
 /* Make the header transparent */
 #header {
-  transition: background-color 0.1s ease-in-out;
   background-color: #343a40 !important;
 }
+
 /* Make the header dark when scrolling down */
 /* .dark-header {
   background-color: #343a40 !important;
 } */
+
+main {
+  /* overflow: auto; */
+  height: auto;
+  /* background: #000 ; */
+}
 
 footer {
   background-color: #343a40;

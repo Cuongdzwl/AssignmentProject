@@ -22,3 +22,11 @@ use App\Models\User;
 Route::get( '/', function() {
     return view('welcome');
 });
+
+Route::get( '/home', function() {
+    return view('home');
+}) -> name('home');
+
+Route::get('product', function() {
+    return view('product.detail');
+}) -> name('product');
