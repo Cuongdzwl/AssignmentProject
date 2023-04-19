@@ -225,7 +225,7 @@
       <div class="row">
         <div class="col-md-3">
           <div class="latest-item">
-            <a href="{{ route('product') }}">
+            {{-- <a href="{{ route('product') }}"> --}}
               <div class="latest-image">
                 <img
                   src="https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=928&q=80"

@@ -3,7 +3,7 @@
 @extends('layouts.main')
 @section('title', 'Product Details')
 @section('content')
-  
+
   <section class="product">
     <div class="container">
       <h2>Product Details</h2>
@@ -34,5 +34,5 @@
     <li><a href="{{ route('product.index') }}">Product List</a></li>
     <li><a href="{{ route('cart.index') }}">Cart List</a></li>
   </ul> --}}
- 
+
 @endsection

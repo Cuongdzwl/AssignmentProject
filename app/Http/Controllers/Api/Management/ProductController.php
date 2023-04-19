@@ -50,7 +50,7 @@ class ProductController extends Controller
                 'success' => false,
                 'message' => 'Product creating failed',
                 'error' => $validator->messages()
-            ], 201);
+            ]);
         }
 
         // Fetch the product data
@@ -95,12 +95,6 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        if (!ProductController::auth()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'You have to be login first'
-            ]);
-        }
         // Validation 
         $validator = Validator::make($request->all(), [
             'name' => 'string|max:255',
