@@ -125,14 +125,20 @@ class CartController extends Controller
         }
         // Check the quantity 
         if (!isset($cart_new['quantity'])) {
-            $cart_new['quantity'] = "+1";
+            $cart_new['quantity'] = "1";
         }
 
         $cart = CartProduct::where('product_id', '=', $cart_new['product_ID'])->where('cart_id', '=', $cart_id);
         // check if the product already exists
         if ($cart->count() != 0) {
             unset($cart_new['_method']);
-            $cart->update($cart_new);
+            if(isset($cart_new['add_to_cart'])) {
+                if($cart_new['add_to_cart'] == true){
+                    $cart->increment('quantity',$cart_new['quantity']);
+                }
+            }else{
+                $cart->update($cart_new);
+            }
         } else {
             CartProduct::create($cart_new);
         }   

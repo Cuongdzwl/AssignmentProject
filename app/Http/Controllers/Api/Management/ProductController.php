@@ -112,7 +112,7 @@ class ProductController extends Controller
             ], 201);
         }
         $newProduct = $request->all();
-        
+
         if (isset($newProduct['price'])) {
             $newProduct['price'] = round($newProduct['price'], 5);
         }
@@ -151,7 +151,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        if(!ProductController::auth()){
+        if (!ProductController::auth()) {
             return response()->json([
                 'success' => false,
                 'message' => 'You have to be login first'
@@ -171,8 +171,9 @@ class ProductController extends Controller
         ], 404);
     }
 
-    public function auth(){
-        if(Auth::guest()){
+    public function auth()
+    {
+        if (Auth::guest()) {
             return false;
         }
         return true;

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Api\Management;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\CategoryProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class CategoryProductController extends Controller
 {
@@ -16,11 +18,9 @@ class CategoryProductController extends Controller
      */
     public function index()
     {
-        $categoryProducts = CategoryProduct::all();
-        return response()->json([
-            'success' => true,
-            'data' => $categoryProducts,
-        ], 200);
+        // Featured product
+        $data = CategoryProductController::getProducts(1);
+        return $data;
     }
 
     /**
@@ -110,5 +110,17 @@ class CategoryProductController extends Controller
             'success' => false,
             'message' => 'Category not found',
         ], 404);
+    }
+
+    public function getProducts($category_id){
+        return DB::table('category_product')
+        ->where('cat_ID','=', $category_id)
+        ->leftJoin('categories', 'category_product.cat_ID','=', 'categories.id')
+        ->leftJoin('products', 'category_product.product_ID','=', 'products.id')
+        ->select('category_product.cat_ID','categories.category_name', 'category_product.product_ID', 'products.name', 'products.image', 'products.price')
+        ->get();
+    }
+    public function category(){
+
     }
 }
