@@ -17,10 +17,14 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $category = Category::latest()->paginate(16);
-        return CategoryResource::collection($category);
+        $categories = Category::latest()->paginate(16);
+        return CategoryResource::collection($categories);
     }
 
+    public function indexAutoLoadCategories(){
+        $categories = Category::latest()->paginate(16);
+        return view('admin.categories.index',compact('categories'));
+    }
     /**
      * Store a newly created resource in storage.
      *
