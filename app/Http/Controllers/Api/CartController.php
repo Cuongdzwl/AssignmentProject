@@ -96,7 +96,7 @@ class CartController extends Controller
     public function update(Request $request)
     {
         // Authenticate
-        if (Auth::guest()) {
+        if (Auth::guest()()) {
             return response()->json([
                 'success' => false,
                 'message' => 'You have to login first'
@@ -157,7 +157,7 @@ class CartController extends Controller
      */
     public function destroy(Request $request)
     {
-        if (Auth::guest()) {
+        if (!Auth::check()) {
             return response()->json([
                 'success' => false,
                 'message' => 'You have to login first'
