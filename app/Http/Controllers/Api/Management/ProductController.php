@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -30,6 +31,12 @@ class ProductController extends Controller
      */
     public function store(Product $product, Request $request)
     {
+        if (!ProductController::auth()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Youhave to be login first'
+            ]);
+        }
         // Validation
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
@@ -88,7 +95,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        // Validation
+        // Validation 
         $validator = Validator::make($request->all(), [
             'name' => 'string|max:255',
             'description' => '',
@@ -105,7 +112,10 @@ class ProductController extends Controller
             ], 201);
         }
         $newProduct = $request->all();
-        $newProduct['price'] = round($newProduct['price'], 5);
+
+        if (isset($newProduct['price'])) {
+            $newProduct['price'] = round($newProduct['price'], 5);
+        }
 
         $product = Product::find($product->id);
 
@@ -141,6 +151,13 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        if (!ProductController::auth()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'You have to be login first'
+            ]);
+        }
+
         if ($product) {
             $product->delete();
             return response()->json([
@@ -152,5 +169,13 @@ class ProductController extends Controller
             'success' => false,
             'message' => 'Product not found',
         ], 404);
+    }
+
+    public function auth()
+    {
+        if (Auth::guest()) {
+            return false;
+        }
+        return true;
     }
 }

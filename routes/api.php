@@ -25,11 +25,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
-
 });
 Route::apiResource('users',UserController::class);
 Route::apiResource('products',ProductController::class);
-Route::apiResource('categoryProducts',CategoryProductController::class);
+Route::apiResource('categoryproducts',CategoryProductController::class);
 Route::apiResource('orders',OrderController::class);
 Route::apiResource('orderProducts',OrderProductController::class);
 Route::apiResource('categories',CategoryController::class);

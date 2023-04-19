@@ -8,10 +8,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Cart;
+use App\Models\CartProduct;
+use App\Models\Product;
 use GrahamCampbell\ResultType\Success;
+use Illuminate\Support\Facades\Validator;
 
 class CartController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -27,29 +31,26 @@ class CartController extends Controller
             ]);
         }
         $user_id = Auth::user()->id;
+        // $user_id = 1;
 
         // Building the query
-        $cart = DB::table('carts')->where('user_id', '=', $user_id)
-            ->leftJoin('cart_product', 'cart_product.cart_id', '=', 'carts.id')
-            ->leftJoin('products', 'cart_product.product_id', '=', 'products.id')
-            ->select('carts.id', 'cart_product.product_id', 'cart_product.quantity', 'products.name', 'products.image', 'products.price')
-            ->get();
+        $cart_check = Cart::where('user_id', '=', $user_id);
 
-        if ($cart->count() == 0) {
-            $cart['user_id'] = $user_id;
-            Cart::created($cart);
+        if ($cart_check->count() == 0) {
+
+            $cart['user_ID'] = $user_id;
+            Cart::create($cart);
         }
-        if ($cart->count() > 1) {
+        if ($cart_check->count() > 1) {
             // Destroy all cart items
-            $dumb = Cart::where('user_id', '=', $user_id);
-            if ($dumb) $dumb->delete();
+            $cart_check->delete();
 
             return response()->json([
                 'success' => false,
                 'message' => 'Something went wrong'
             ]);
         }
-
+        $cart = CartController::getCart($user_id);
         // Building the cart
         return response()->json([
             'success' => true,
@@ -92,10 +93,60 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request)
     {
+        // Authenticate
+        if (Auth::guest()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'You have to login first'
+            ]);
+        }
+        $user_id = Auth::user()->id;
+        // $user_id = 1;
+
+        // Get the user cart id
+        $cart_id = json_decode(Cart::where('user_id', $user_id)->get('id'), true);
+        $cart_id = $cart_id[0]['id'];
+
+        $cart_new = $request->all();
+        $cart_new['cart_ID'] = $cart_id;
+
+        // Validate 
+        $validator = Validator::make($request->all(), [
+            'product_ID' => 'required|integer|min:0',
+            'quantity' => 'integer|min:0'
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Somthing went wrong'
+            ]);
+        }
+        // Check the quantity 
+        if (!isset($cart_new['quantity'])) {
+            $cart_new['quantity'] = "1";
+        }
+
+        $cart = CartProduct::where('product_id', '=', $cart_new['product_ID'])->where('cart_id', '=', $cart_id);
         // check if the product already exists
-        
+        if ($cart->count() != 0) {
+            unset($cart_new['_method']);
+            if(isset($cart_new['add_to_cart'])) {
+                if($cart_new['add_to_cart'] == true){
+                    $cart->increment('quantity',$cart_new['quantity']);
+                }
+            }else{
+                $cart->update($cart_new);
+            }
+        } else {
+            CartProduct::create($cart_new);
+        }   
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Added to cart successfully'
+        ]);
     }
 
     /**
@@ -114,7 +165,7 @@ class CartController extends Controller
         }
 
         $user_id = Auth::user()->id;
-        $cart = DB::table('cart')->where('user_id','=', $user_id)->get();
+        $cart = Cart::where('user_id', '=', $user_id)->get();
         if ($cart) {
             $cart->delete();
             return response()->json([
@@ -127,5 +178,14 @@ class CartController extends Controller
             'success' => false,
             'message' => 'Cart has not been deleted'
         ]);
+    }
+
+    protected static function getCart($user_id)
+    {
+        return DB::table('carts')->where('user_id', '=', $user_id)
+            ->leftJoin('cart_product', 'cart_product.cart_id', '=', 'carts.id')
+            ->leftJoin('products', 'cart_product.product_id', '=', 'products.id')
+            ->select('cart_product.product_id', 'cart_product.quantity', 'products.name', 'products.image', 'products.price')
+            ->get();
     }
 }
