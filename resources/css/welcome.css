@@ -1,0 +1,68 @@
+body {
+  background: linear-gradient(to left, #2b2b2b, #7e7b6d);
+  /* background: #000; */
+  height: 100vh;
+  margin: 0rem;
+  overflow: hidden;
+  font-family: "montserrat", sans-serif;
+  height: 100%;
+  margin: 0;
+}
+
+@keyframes rotate {
+  from {
+    rotate: 0deg;
+  }
+
+  50% {
+    scale: 1 1.5 ;
+  }
+
+  to {
+    rotate: 360deg;
+  }
+}
+
+#blob {
+  background: red;
+  height: 300px;
+  aspect-ratio: 1;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: linear-gradient(to right, aquamarine, mediumpurple);
+  animation: rotate 20s infinite;
+  opacity: 0.8;
+  /* z-index: 1; */
+}
+
+@keyframes rotate {
+  from {
+    rotate: 0deg;
+  }
+
+  50% {
+    scale: 1 1.5;
+  }
+
+  to {
+    rotate: 360deg;
+  }
+}
+
+#blur {
+
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  /* z-index: 2; */
+  backdrop-filter: blur(10vmax);
+}
+
+.navbar{
+  position: relative;
+  z-index: 3;
+  /* background: transparent !important; */
+}
