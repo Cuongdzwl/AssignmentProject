@@ -1,8 +1,8 @@
 <link rel="stylesheet" href="css/home.css">
 @extends('layouts.main')
-@section('title', 'Homepage')
+@section('title', 'Home Page')
 @section('content')
-  <section class="featured-products" onload="updateProduct()">
+  <section class="featured-products">
     <div class="container">
       <h2>Featured Products</h2>
       <div class="image-slider">
@@ -67,7 +67,8 @@
       <div class="row" id="product_all">
       </div>
     </div>
-    {{-- {!! $->->links() !!} --}}
+  </section>
+  </body>
 
   </section>
 

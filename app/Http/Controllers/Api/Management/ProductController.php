@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
+use GrahamCampbell\ResultType\Success;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,6 +22,21 @@ class ProductController extends Controller
     {
         $products = Product::latest()->paginate(12);
         return ProductResource::collection($products);
+    }
+    public function indexAutoLoadProducts()
+    {
+        $products = Product::latest()->paginate(15);
+        return view('admin.products.index', compact('products'));
+    }
+    public function search($keyword)
+    {
+        $product = Product::where("name", 'LIKE', '%' + $keyword + '$')->latest()->paginate(5);
+        return response()->json(
+            [
+                'success' => true,
+                'data' => $product
+            ]
+        );
     }
 
     /**

@@ -11,27 +11,33 @@
         </div>
 
         <!-- Navigation Links -->
-        <div class="hidden space-x-8 sm:-my-px sm:ml-4 sm:flex">
-          <x-nav-link :href="route('dashboard')" :active="request()->routeIs('home')">
-            {{ __('Home') }}
-          </x-nav-link>
-        </div>
-        
+        @role('admin')
+          <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+            <x-nav-link :href="route('dashboard')" :active="request()->routeIs('home')">
+              {{ __('Home') }}
+            </x-nav-link>
+          </div>
+          <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+            <x-nav-link :href="route('dashboard')" :active="request()->routeIs('home')">
+              {{ __('Order') }}
+            </x-nav-link>
+          </div>
+          <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+            <x-nav-link :href="route('dashboard')" :active="request()->routeIs('home')">
+              {{ __('Permission') }}
+            </x-nav-link>
+          </div>
+        @endrole
       </div>
+
       {{-- Middle section --}}
-      <form class="flex  m-auto">
+      <form class="m-auto flex">
         <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-        <button class="bg-black py-1.5 px-3" type="submit"><i class="fa-solid fa-magnifying-glass" style="color: white;"></i></button>
+        <button class="bg-black py-1.5 px-3" type="submit"><i class="fa-solid fa-magnifying-glass"
+            style="color: white;"></i></button>
       </form>
+
       <!-- Left section / Settings Dropdown -->
-      <div class="hidden sm:ml-6 sm:flex sm:items-center">
-        <a class="inline-flex items-center
-         bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none"
-          href="{{ url('cart') }}">
-          <i class="fa-solid fa-cart-shopping"></i>
-          Cart
-        </a>
-      </div>
       <div class="hidden sm:ml-6 sm:flex sm:items-center">
         <x-dropdown align="right" width="48">
           <x-slot name="trigger">

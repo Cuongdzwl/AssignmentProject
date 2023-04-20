@@ -13,7 +13,7 @@ $(document).ready(function () {
                     ">" +
                     '<img class="latest-image" src="' +
                     item.image +
-                    '"alt="Product Image 1" width="200px">' +
+                    '"alt="Product Image" width="200px">' +
                     '<h6 class="product-title">' +
                     item.name +
                     "</h6>" +

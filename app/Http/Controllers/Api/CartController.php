@@ -31,7 +31,6 @@ class CartController extends Controller
             ]);
         }
         $user_id = Auth::user()->id;
-        // $user_id = 1;
 
         // Building the query
         $cart_check = Cart::where('user_id', '=', $user_id);
@@ -57,7 +56,30 @@ class CartController extends Controller
             'data' => $cart
         ]);
     }
+    public function indexAutoLoadCart(){
+        $user_id = Auth::user()->id;
 
+        // Building the query
+        $cart_check = Cart::where('user_id', '=', $user_id);
+
+        if ($cart_check->count() == 0) {
+
+            $cart['user_ID'] = $user_id;
+            Cart::create($cart);
+        }
+        if ($cart_check->count() > 1) {
+            // Destroy all cart items
+            $cart_check->delete();
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong'
+            ]);
+        }
+        $cart = CartController::getCart($user_id);
+        // Building the cart
+        return view('cart.detail',compact('cart'));
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -96,7 +118,7 @@ class CartController extends Controller
     public function update(Request $request)
     {
         // Authenticate
-        if (Auth::guest()) {
+        if (Auth::guest()()) {
             return response()->json([
                 'success' => false,
                 'message' => 'You have to login first'
@@ -157,7 +179,7 @@ class CartController extends Controller
      */
     public function destroy(Request $request)
     {
-        if (Auth::guest()) {
+        if (!Auth::check()) {
             return response()->json([
                 'success' => false,
                 'message' => 'You have to login first'

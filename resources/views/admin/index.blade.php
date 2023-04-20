@@ -10,7 +10,7 @@
 
 <body>
   <h1>Admin</h1>
-  <a href="{{ route('admin.create') }}">Create</a>
+  {{-- <a href="{{ route('admin.create') }}">Create</a> --}}
   <table>
     <thead>
       <tr>
@@ -20,13 +20,13 @@
       </tr>
     </thead>
     <tbody>
-      @foreach ($posts as $post)
+      @foreach ($product as $product)
         <tr>
-          <td>{{ $post->title }}</td>
-          <td>{{ $post->content }}</td>
+          <td>{{ $product->title }}</td>
+          <td>{{ $product->content }}</td>
           <td>
-            <a href="{{ route('admin.edit', ['id' => $post->id]) }}">Edit</a>
-            <a href="{{ route('admin.delete', ['id' => $post->id]) }}">Delete</a>
+            {{-- <a href="{{ route('admin.edit', ['id' => $product->id]) }}">Edit</a>
+            <a href="{{ route('admin.delete', ['id' => $product->id]) }}">Delete</a> --}}
           </td>
         </tr>
       @endforeach
