@@ -1,5 +1,5 @@
 body {
-  background: linear-gradient(to left, #2b2b2b, #7e7b6d);
+  background: linear-gradient(to left, #1e1e1e, #7e7b6d);
   /* background: #000; */
   height: 100vh;
   margin: 0rem;
@@ -15,7 +15,7 @@ body {
   }
 
   50% {
-    scale: 1 1.5 ;
+    scale: 1 1.5;
   }
 
   to {
@@ -24,7 +24,6 @@ body {
 }
 
 #blob {
-  background: red;
   height: 300px;
   aspect-ratio: 1;
   position: absolute;
@@ -32,7 +31,10 @@ body {
   top: 50%;
   translate: -50% -50%;
   border-radius: 50%;
-  background: linear-gradient(to right, aquamarine, mediumpurple);
+  background: linear-gradient(to right, #F6F1E9,
+      #FFD93D,
+      #FF8400,
+      #4F200D);
   animation: rotate 20s infinite;
   opacity: 0.8;
   /* z-index: 1; */
@@ -61,7 +63,7 @@ body {
   backdrop-filter: blur(10vmax);
 }
 
-.navbar{
+.navbar {
   position: relative;
   z-index: 3;
   /* background: transparent !important; */

@@ -136,6 +136,6 @@
     </div>
   </section>
 
-  {{-- @vite('/resources/js/data/loadProducts.js') --}}
+  @vite('/resources/js/data/loadProducts.js')
   <script src="js/home.js"></script>
 </x-app-layout>

@@ -2,7 +2,7 @@
   <!-- Primary Navigation Menu -->
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <div class="flex h-16 justify-between">
-      {{-- Right section --}}
+      {{-- Left section --}}
       <div class="flex">
         <!-- Logo -->
         <div class="flex shrink-0 items-center">
@@ -12,11 +12,6 @@
 
         <!-- Navigation Links -->
         @role('admin')
-          <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-            <x-nav-link :href="route('dashboard')" :active="request()->routeIs('home')">
-              {{ __('Home') }}
-            </x-nav-link>
-          </div>
           <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
             <x-nav-link :href="route('dashboard')" :active="request()->routeIs('home')">
               {{ __('Order') }}
@@ -37,7 +32,14 @@
             style="color: white;"></i></button>
       </form>
 
-      <!-- Left section / Settings Dropdown -->
+      <!-- Right section / Settings Dropdown -->
+      <div class="hidden sm:ml-6 sm:flex sm:items-center">
+        <a class="inline-flex items-center bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none"
+          href="{{ url('cart') }}">
+          <i class="fa-solid fa-cart-shopping"></i>
+          Cart
+        </a>
+      </div>
       <div class="hidden sm:ml-6 sm:flex sm:items-center">
         <x-dropdown align="right" width="48">
           <x-slot name="trigger">

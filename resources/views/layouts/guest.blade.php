@@ -22,17 +22,16 @@
   <div class="-z-20" id="blob"></div>
   <div class="-z-10" id="blur"></div>
   <div class="flex min-h-screen flex-col items-center pt-6 sm:justify-center sm:pt-0">
-    <div class="rounded-sm border-black">
-      <a href="/">
-        <i class="fa-brands fa-pagelines fa-2xl text-slate-50"></i>
-      </a>
-    </div>
+
+    <a href="/">
+      <i class="fa-brands fa-pagelines fa-2xl text-slate-50"></i>
+    </a>
 
     <div class="mt-6 w-full overflow-hidden bg-white px-6 py-4 shadow-md sm:max-w-md sm:rounded-lg">
       {{ $slot }}
     </div>
 
-    <script src="js/welcome.js"></script>
+    <script src="{{ asset('js/guest.js') }}"></script>
 </body>
 
 </html>
