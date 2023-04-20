@@ -6,7 +6,7 @@
      </x-slot>
      <div class="mx-auto max-w-7xl rounded-lg bg-white p-5 m-3 shadow-md space-y-4">
          <a class="rounded-md border border-transparent bg-green-400 px-4 py-2 text-s font-semibold text-white hover:bg-green-300"
-             href="">Create New</a>
+             href="{{route('admin.create')}}">Create New</a>
          <div class="overflow-x-auto">
              <table class="w-full table-auto rounded-xl border border-gray-300 bg-white text-left shadow-sm divide-y">
                  <thead class="bg-gray-500/5">
@@ -23,7 +23,8 @@
                      @foreach ($categories as $category)
                          <tr>
                              <td class="px-2"><b>{{ $category->id }}</b></td>
-                             <td><a href="">{{ $category->name }}</a></td>
+                             <td class="px-2"><b>{{ $category->description }}</b></td>
+                             <td><a href="">{{ $category->category_name }}</a></td>
                              <td>{{ $category->created_at }}</td>
                              <td>{{ $category->updated_at }}</td>
                              <td class="py-2">

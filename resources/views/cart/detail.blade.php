@@ -22,29 +22,28 @@
                                     </tr>
                                 </thead>
                                 <tbody id="cart_all">
-                                    <tr>
-                                        <td>Product Name</td>
-                                        <td>$100</td>
-                                        <td>
-                                            <input type="number" value="1" min="1" class="form-control">
-                                        </td>
-                                        <td>$100</td>
-                                        <td>
-                                            <a href="#" class="btn btn-danger">Delete</a>
-                                        </td>
-                                    </tr>
+                                    @foreach ($cart as $item)
+                                        @if ($item->product_id == null)
+                                            @break
+                                        @endif
+                                        <tr>
+                                            <td>{{ $item->name }}</td>
+                                            <td>{{ $item->price }}</td>
+                                            <td>
+                                                <input type="number" value="{{ $item->quantity }}" min="1"
+                                                    class="form-control">
+                                            </td>
+                                            <td id="subtotal">{{ $item->price * $item->quantity }}</td>
+                                            <td>
+                                                <a href="#" class="btn btn-danger">Delete</a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-                <script type="text/javascript">
-                    $(document).ready(function() {
-                        $.get('http://127.0.0.1:8000/api/cart',function(data){
-                          console.log(data);
-                        })
-                    });
-                </script>
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-body">
