@@ -1,9 +1,9 @@
 $(document).ready(function () {
     $(".image-slider").slick({
-        slidesToShow: 4,
-        slidesToScroll: 1,
+        slidesToShow: 6,
+        slidesToScroll: 2,
         autoplay: true,
-        autoplaySpeed: 2000,
+        autoplaySpeed: 3000,
         dots: true,
         infinite: true,
         arrows: false,

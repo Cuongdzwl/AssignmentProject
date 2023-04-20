@@ -1,5 +1,5 @@
 body {
-  background: linear-gradient(to left, #5a5766, #aaa694);
+  background: linear-gradient(to left, #2b2b2b, #7e7b6d);
   /* background: #000; */
   height: 100vh;
   margin: 0rem;
@@ -35,15 +35,29 @@ body {
   background: linear-gradient(to right, aquamarine, mediumpurple);
   animation: rotate 20s infinite;
   opacity: 0.8;
-  z-index: 1;
+  /* z-index: 1; */
+}
+
+@keyframes rotate {
+  from {
+    rotate: 0deg;
+  }
+
+  50% {
+    scale: 1 1.5;
+  }
+
+  to {
+    rotate: 360deg;
+  }
 }
 
 #blur {
-  background-color: dark;
+
   height: 100%;
   width: 100%;
   position: absolute;
-  z-index: 2;
+  /* z-index: 2; */
   backdrop-filter: blur(10vmax);
 }
 

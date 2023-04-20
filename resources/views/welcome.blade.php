@@ -19,9 +19,8 @@
 <body>
   <div id="blob"></div>
   <div id="blur"></div>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
+  {{-- <nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
     <div class="container-fluid">
-      {{-- ! Icon, font --}}
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -37,7 +36,7 @@
         </ul>
       </div>
     </div>
-  </nav>
+  </nav> --}}
 
   <script src="js/welcome.js"></script>
 </body>

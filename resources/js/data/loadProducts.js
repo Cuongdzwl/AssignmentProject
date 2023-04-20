@@ -7,7 +7,7 @@ $(document).ready(function () {
             $.each(data.data, function (index, item) {
                 var html =
                     '<div class="col-md-3">' +
-                    '<a href=>'+
+                    "<a href=>" +
                     '<div class="latest-item" id=' +
                     item.id +
                     ">" +
@@ -21,7 +21,7 @@ $(document).ready(function () {
                     item.price +
                     "</p>" +
                     "</div>" +
-                    '</a>'+
+                    "</a>" +
                     "</div>";
                 $("#product_all").append(html);
             });

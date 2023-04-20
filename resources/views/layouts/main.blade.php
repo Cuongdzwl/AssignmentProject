@@ -13,7 +13,6 @@
   <script src="https://kit.fontawesome.com/e39677c136.js" crossorigin="anonymous"></script>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  {{-- <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'> --}}
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css" />
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick-theme.css" />
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.js" />
@@ -43,7 +42,8 @@
       <!-- User Icon -->
       <div class="d-flex">
         <a class="cart-link" href="{{ url('cart') }}">
-          <i class="fa-solid fa-cart-shopping">Cart</i>
+          <i class="fa-solid fa-cart-shopping"></i>
+          Cart
         </a>
       </div>
       <div class="dropdown">
@@ -59,7 +59,6 @@
           <li><a class="dropdown-item" href="{{ url('/') }}">Logout</a></li>
         </ul>
       </div>
-
     </div>
   </header>
 
@@ -76,7 +75,6 @@
   </footer>
 
   <script src="js/layout.js"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
 
 </body>
 
