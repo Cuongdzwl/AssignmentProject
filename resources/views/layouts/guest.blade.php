@@ -15,6 +15,7 @@
   <!-- Scripts -->
   <script src="https://kit.fontawesome.com/e39677c136.js" crossorigin="anonymous"></script>
   @vite(['resources/css/app.css', 'resources/js/app.js'])
+  @vite(['/resources/js/welcome.js'])
 
 </head>
 
@@ -32,7 +33,6 @@
       {{ $slot }}
     </div>
 
-    <script src="js/welcome.js"></script>
 </body>
 
 </html>
