@@ -24,13 +24,7 @@ class CartController extends Controller
     public function index()
     {
         // Authenticate
-        if (Auth::guest()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'You have to login first'
-            ]);
-        }
-        $user_id = Auth::user()->id;
+        $user_id = auth('sanctum')->user()->id;
 
         // Building the query
         $cart_check = Cart::where('user_id', '=', $user_id);
@@ -118,13 +112,7 @@ class CartController extends Controller
     public function update(Request $request)
     {
         // Authenticate
-        if (Auth::guest()()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'You have to login first'
-            ]);
-        }
-        $user_id = Auth::user()->id;
+         $user_id = Auth::user()->id;
         // $user_id = 1;
 
         // Get the user cart id
@@ -179,12 +167,6 @@ class CartController extends Controller
      */
     public function destroy(Request $request)
     {
-        if (!Auth::check()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'You have to login first'
-            ]);
-        }
 
         $user_id = Auth::user()->id;
         $cart = Cart::where('user_id', '=', $user_id)->get();

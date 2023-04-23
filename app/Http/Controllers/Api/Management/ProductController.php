@@ -28,13 +28,18 @@ class ProductController extends Controller
         $products = Product::latest()->paginate(15);
         return view('admin.products.index', compact('products'));
     }
+    public function searchAutoLoad($keyword)
+    {
+        $products = Product::where("name", 'LIKE', '%' . $keyword . '%')->latest()->paginate(12);
+        return view('search',compact('products'));
+    }
     public function search($keyword)
     {
-        $product = Product::where("name", 'LIKE', '%' + $keyword + '$')->latest()->paginate(5);
+        $products = Product::where("name", 'LIKE', '%' . $keyword . '%')->latest()->paginate(12);
         return response()->json(
             [
                 'success' => true,
-                'data' => $product
+                'data' => $products
             ]
         );
     }
@@ -47,12 +52,6 @@ class ProductController extends Controller
      */
     public function store(Product $product, Request $request)
     {
-        if (!ProductController::auth()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Youhave to be login first'
-            ]);
-        }
         // Validation
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
@@ -167,12 +166,6 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        if (!ProductController::auth()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'You have to be login first'
-            ]);
-        }
 
         if ($product) {
             $product->delete();
@@ -187,11 +180,4 @@ class ProductController extends Controller
         ], 404);
     }
 
-    public function auth()
-    {
-        if (Auth::guest()) {
-            return false;
-        }
-        return true;
-    }
 }

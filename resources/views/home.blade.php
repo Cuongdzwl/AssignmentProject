@@ -33,7 +33,6 @@
               src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"
               alt="" />
           </div>
-
         </div>
         <div class="image-item">
           <div class="image">
@@ -53,6 +52,7 @@
   </section>
 
   <section>
+    @vite('/resources/js/data/loadProducts.js')
     <div class="container">
       <h3 class="text-center">Latest Products</h3>
       <div class="row" id="product_all">
@@ -60,6 +60,5 @@
     </div>
   </section>
 
-  {{-- @vite('/resources/js/data/loadProducts.js') --}}
-  <script src="js/home.js"></script>
+    <script src="js/home.js"></script>
 @endsection
