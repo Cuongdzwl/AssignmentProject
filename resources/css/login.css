@@ -1,0 +1,9 @@
+.card{
+    /* border: 1px solid black !important; */
+    box-shadow: 0 0 15px 0 rgba(0,0,0,0.2) !important;
+}
+
+.icon{
+    text-align: center;
+    
+}

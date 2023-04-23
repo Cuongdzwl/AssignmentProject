@@ -7,7 +7,7 @@ $(document).ready(function () {
             $.each(data.data, function (index, item) {
                 var html =
                     '<div class="col-md-3">' +
-                    '<a href=>'+
+                    "<a href=>" +
                     '<div class="latest-item" id=' +
                     item.id +
                     ">" +
@@ -21,10 +21,29 @@ $(document).ready(function () {
                     item.price +
                     "</p>" +
                     "</div>" +
-                    '</a>'+
+                    "</a>" +
                     "</div>";
                 $("#product_all").append(html);
             });
+
+            // Add to cart button event listener
+            // $(".add-to-cart").click(function () {
+            //     var productId = $(this).data("product-id");
+            //     $.ajax({
+            //         method: "POST",
+            //         url: "/cart/add",
+            //         data: { productId: productId },
+            //         dataType: "json",
+            //         success: function (response) {
+            //             // Handle success response
+            //             alert("Product added to cart!");
+            //         },
+            //         error: function (xhr, textStatus, errorThrown) {
+            //             // Handle error response
+            //             alert("Error adding product to cart.");
+            //         },
+            //     });
+            // });
         },
     });
 });

@@ -1,14 +1,3 @@
-body {
-  margin-top: 60px !important;
-  position: relative;
-}
-
-main {
-  /* overflow: auto; */
-  height: auto;
-  /* background: #000 ; */
-}
-
 .image {
   height: 100%;
   width: 200px;
