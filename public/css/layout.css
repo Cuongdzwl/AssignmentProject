@@ -3,16 +3,6 @@ body {
   position: relative;
 }
 
-/* Make the header transparent */
-#header {
-  transition: background-color 0.1s ease-in-out;
-  background-color: #343a40 !important;
-}
-/* Make the header dark when scrolling down */
-/* .dark-header {
-  background-color: #343a40 !important;
-} */
-
 footer {
   background-color: #343a40;
   position: absolute;

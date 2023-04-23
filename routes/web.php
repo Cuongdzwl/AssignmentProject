@@ -57,6 +57,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/orders', [OrderController::class, 'indexAutoLoadOrders'])->name('admin.order');
     Route::get('/admin/products', [ProductController::class, 'indexAutoLoadProducts'])->name('admin.product');
     Route::get('/admin/categories', [CategoryController::class, 'indexAutoLoadCategories'])->name('admin.category');
+
 });
 
 Route::redirect(config('permission_ui.url_prefix'), config('permission_ui.url_prefix') . '/users');
