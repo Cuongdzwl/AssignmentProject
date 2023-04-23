@@ -1,12 +1,7 @@
-<link rel="stylesheet" href="css/cart-detail.css">
-
-@extends('layouts.main')
 @section('title', 'Cart Details')
-@section('content')
-
+<x-app-layout>
   <section class="cart">
     <div class="container">
-      <h2>Cart</h2>
       <div class="row">
         <div class="col-md-8">
           <div class="card">
@@ -55,6 +50,7 @@
         </div>
       </div>
     </div>
-  </div>
 </section>
-@endsection
+
+
+</x-app-layout>

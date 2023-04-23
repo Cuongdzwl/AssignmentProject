@@ -1,24 +1,11 @@
-<link rel="stylesheet" href="css/home.css">
+@section('title', 'Leefly Shop')
+{{-- <link rel="stylesheet" href="css/home.css"> --}}
+@vite('/resources/css/home.css')
 <x-app-layout>
-  {{-- <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot> --}}
-
-  {{-- <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
-                </div>
-            </div>
-        </div>
-    </div> --}}
-  <section class="featured-products" onload="updateProduct()">
+  <section class="featured-products">
     <div class="container">
       <h2 class="flex justify-center text-3xl">Featured Products</h2>
-      <div class="image-slider">
+      <div id="image-slider">
         <div class="image-item">
           <div class="image">
             <a href="">
@@ -136,6 +123,47 @@
     </div>
   </section>
 
-  @vite('/resources/js/data/loadProducts.js')
-  <script src="js/home.js"></script>
+  <section class="latest-product">
+    <div class="container">
+      <h2 class="flex justify-center text-3xl">Latest Products</h2>
+
+      <!-- HTML code for product list container and filter form -->
+      <form id="filter-form">
+        <label for="category-filter">Category:</label>
+        <select id="category-filter" name="category">
+          <option value="">All</option>
+          <option value="electronics">Electronics</option>
+          <option value="clothing">Clothing</option>
+          <option value="books">Books</option>
+        </select>
+
+        <label for="price-filter">Price:</label>
+        <select id="price-filter" name="price">
+          <option value="">All</option>
+          <option value="under-50">Under $50</option>
+          <option value="50-100">$50-$100</option>
+          <option value="over-100">Over $100</option>
+        </select>
+      </form>
+
+      <div class="row" id="product_all">
+          
+      </div>
+    </div>
+  </section>
+
+  {{-- @vite('/resources/js/data/loadProducts.js') --}}
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $("#image-slider").slick({
+        slidesToShow: 6,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 3000,
+        dots: true,
+        infinite: true,
+        arrows: false,
+      });
+    });
+  </script>
 </x-app-layout>

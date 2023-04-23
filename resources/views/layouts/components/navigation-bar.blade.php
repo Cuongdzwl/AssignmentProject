@@ -1,23 +1,25 @@
-<nav class="navbar navbar-expand-lg navbar-light fixed-top bg-light" id="header">
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" id="header">
   <div class="container-fluid">
     <!-- Logo -->
     <a class="navbar-brand" href="{{ route('home') }}">
       <div class="icon-container">
-        <i class="fa-regular fa-gem" id="icon"></i>
+        <i class="fa-brands fa-pagelines fa-xl" style="color: #636363;"></i>
       </div>
     </a>
 
     <!-- Search Bar -->
     <form class="d-flex mx-auto my-auto">
-      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-light" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+      <input class="form-control border-none" type="search" placeholder="Search" aria-label="Search"
+        style="border-radius: 0; border: 1px solid black">
+      <button class="bg-black px-3" type="submit"><i class="fa-solid fa-magnifying-glass"
+          style="color: white;"></i></button>
     </form>
 
     <!-- User Icon -->
     @if (Auth::check())
-      <div class="d-flex">
+      <div class="flex">
         <a class="cart-link" href="{{ url('cart') }}">
-          <i class="fa-solid fa-cart-shopping"></i>
+          <i class="fa-solid fa-cart-shopping text-black"></i>
         </a>
       </div>
 
@@ -48,12 +50,14 @@
         </ul>
       </div>
     @else
-      <li class="nav-item">
-        <a class="nav-link" href="{{ route('login') }}">Login</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ route('register') }}">Register</a>
-      </li>
+      <ul class="nav justify-content-end">
+        <li class="nav-item">
+          <a class="nav-link text-black" href="{{ route('login') }}">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link bg-black text-white" href="{{ route('register') }}">Register</a>
+        </li>
+      </ul>
     @endif
   </div>
 </nav>

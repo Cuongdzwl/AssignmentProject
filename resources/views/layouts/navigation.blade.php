@@ -8,72 +8,71 @@
         <div class="flex shrink-0 items-center">
           <a href="{{ route('dashboard') }}">
             <i class="fa-brands fa-pagelines fa-2xl" style="color: #636363;"></i>
+          </a>
         </div>
 
-        <!-- Navigation Links -->
-        @role('admin')
-          <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-            <x-nav-link :href="route('dashboard')" :active="request()->routeIs('home')">
-              {{ __('Order') }}
-            </x-nav-link>
-          </div>
-          <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-            <x-nav-link :href="route('dashboard')" :active="request()->routeIs('home')">
-              {{ __('Permission') }}
-            </x-nav-link>
-          </div>
-        @endrole
+        @include('layouts.components.navigation-links')
       </div>
 
       {{-- Middle section --}}
-      <form class="m-auto flex">
+      <form class="m-auto flex ">
+        {{-- asasasdauauyfhadd --}}
         <input class="form-control" type="search" placeholder="Search" aria-label="Search">
         <button class="bg-black py-1.5 px-3" type="submit"><i class="fa-solid fa-magnifying-glass"
             style="color: white;"></i></button>
       </form>
 
       <!-- Right section / Settings Dropdown -->
+     
       <div class="hidden sm:ml-6 sm:flex sm:items-center">
-        <a class="inline-flex items-center bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none"
-          href="{{ url('cart') }}">
-          <i class="fa-solid fa-cart-shopping"></i>
-          Cart
-        </a>
-      </div>
-      <div class="hidden sm:ml-6 sm:flex sm:items-center">
-        <x-dropdown align="right" width="48">
-          <x-slot name="trigger">
-            <button
-              class="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none">
-              <div>{{ Auth::user()->name }}</div>
+        @if (Auth::check())
+          <div class="flex">
+            <a class="cart-link" href="{{ url('cart') }}">
+              <i class="fa-solid fa-cart-shopping"></i>
+            </a>
+          </div>
+          <x-dropdown align="right" width="48">
+            <x-slot name="trigger">
+              <button
+                class="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none">
+                <div>{{ Auth::user()->name }}</div>
 
-              <div class="ml-1">
-                <svg class="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd"
-                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                    clip-rule="evenodd" />
-                </svg>
-              </div>
-            </button>
-          </x-slot>
+                <div class="ml-1">
+                  <svg class="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd"
+                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                      clip-rule="evenodd" />
+                  </svg>
+                </div>
+              </button>
+            </x-slot>
 
-          <x-slot name="content">
-            <x-dropdown-link :href="route('profile.edit')">
-              {{ __('Profile') }}
-            </x-dropdown-link>
-
-            <!-- Authentication -->
-            <form method="POST" action="{{ route('logout') }}">
-              @csrf
-
-              <x-dropdown-link :href="route('logout')"
-                onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                {{ __('Log Out') }}
+            <x-slot name="content">
+              <x-dropdown-link :href="route('profile.edit')">
+                {{ __('Profile') }}
               </x-dropdown-link>
-            </form>
-          </x-slot>
-        </x-dropdown>
+              <x-dropdown-link :href="route('home')">
+                {{ __('My Orders') }}
+              </x-dropdown-link>
+              @role('admin')
+                <x-dropdown-link :href="route('admin')">
+                  {{ __('Admin Settings') }}
+                </x-dropdown-link>
+              @endrole
+              <!-- Authentication -->
+              <form method="POST" action="{{ route('logout') }}">
+                @csrf
+
+                <x-dropdown-link :href="route('logout')"
+                  onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                  {{ __('Log Out') }}
+                </x-dropdown-link>
+              </form>
+            </x-slot>
+          </x-dropdown>
+        @else
+        @endif
       </div>
 
       <!-- Hamburger -->
@@ -109,6 +108,12 @@
       <div class="mt-3 space-y-1">
         <x-responsive-nav-link :href="route('profile.edit')">
           {{ __('Profile') }}
+        </x-responsive-nav-link>
+        <x-responsive-nav-link :href="route('home')">
+          {{ __('My Orders') }}
+        </x-responsive-nav-link>
+        <x-responsive-nav-link :href="route('admin')">
+          {{ __('Admin Settings') }}
         </x-responsive-nav-link>
 
         <!-- Authentication -->

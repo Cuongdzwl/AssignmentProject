@@ -29,8 +29,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/cart', [CartController::class,'indexAutoLoadCart'])->name('cart.view');
+    Route::get('/order', [CartController::class,'indexAutoLoadCart'])->name('order.view');
 
-    Route::get('/admin', [HomeController::class,'admin'])->name('admin');
+    Route::get('/admin', [HomeController::class,'index'])->name('admin');
     Route::get('/admin/orders', [OrderController::class,'indexAutoLoadOrders'])->name('admin.order');
     Route::get('/admin/products', [ProductController::class,'indexAutoLoadProducts'])->name('admin.product');
     Route::get('/admin/categories', [CategoryController::class,'indexAutoLoadCategories'])->name('admin.category');

@@ -22,7 +22,6 @@
   <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
     crossorigin="anonymous"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
-  
 
 </head>
 
@@ -30,22 +29,13 @@
   <div class="min-h-screen bg-gray-100">
     @include('layouts.navigation')
 
-    <!-- Page Heading -->
-    {{-- @if (isset($header))
-      <header class="bg-white shadow">
-        <div class="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
-          {{ $header }}
-        </div>
-      </header>
-    @endif --}}
-
     <!-- Page Content -->
     <main>
       {{ $slot }}
     </main>
-  </div>
 
-  @vite('/resources/js/data/loadProducts.js')
+    @include('layouts.components.footer')
+  </div>
 </body>
 
 </html>
