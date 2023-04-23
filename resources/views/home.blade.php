@@ -55,8 +55,12 @@
             </div>
         </div>
     </section>
-
+<form action="">
+    <input type="text" id="search">
+</form>
+    @vite('/resources/js/data/loadProducts.js')
     <section class="latest-product">
+
         <div class="container">
             <h2>Latest Products</h2>
             <div class="row" id="product_all">
@@ -65,6 +69,5 @@
     </section>
     </body>
 
-    @vite('/resources/js/data/loadProducts.js')
     <script src="js/home.js"></script>
 @endsection

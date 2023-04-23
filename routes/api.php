@@ -8,7 +8,7 @@ use App\Http\Controllers\Api\Management\CategoryController;
 use App\Http\Controllers\Api\Management\OrderProductController;
 use App\Http\Controllers\Api\Management\ProductController;
 use App\Http\Controllers\Api\UserController;
-use App\Models\CategoryProduct;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,15 +23,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-Route::apiResource('users',UserController::class);
-Route::apiResource('products',ProductController::class);
-// Route::get('/product')
-Route::apiResource('categoryproducts',CategoryProductController::class);
-Route::apiResource('orders',OrderController::class);
-Route::apiResource('orderProducts',OrderProductController::class);
-Route::apiResource('categories',CategoryController::class);
-Route::apiResource('cart',CartController::class);
+//
+Route::get('/products', [ProductController::class,'index']);
+Route::get('/categories/{id}', [CategoryProductController::class,'index']);
+Route::get('/categories', [CategoryController::class,'index']);
+Route::get('/search/{keyword}', [ProductController::class, 'search']);
+Route::get('/products', [ProductController::class,'index']);
 
+Route::middleware('auth:sanctum')->group(
+    function () {
+        Route::post('products', [ProductController::class, 'store']);
+        Route::put('products', [ProductController::class, 'update']);
+        Route::delete('products', [ProductController::class, 'delete']);
+        
+        Route::apiResource('categories', CategoryController::class);
+        Route::apiResource('cart', CartController::class);
+        Route::apiResource('categoryproducts', CategoryProductController::class);
+        Route::apiResource('users', UserController::class);
+        Route::apiResource('orders', OrderController::class);
+        Route::apiResource('orderProducts', OrderProductController::class);
+    }
+);
