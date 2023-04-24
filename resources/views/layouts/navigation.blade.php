@@ -15,20 +15,18 @@
       </div>
 
       {{-- Middle section --}}
-      <form class="m-auto flex ">
-        {{-- asasasdauauyfhadd --}}
+      <form class="m-auto flex">
         <input class="form-control" type="search" placeholder="Search" aria-label="Search">
         <button class="bg-black py-1.5 px-3" type="submit"><i class="fa-solid fa-magnifying-glass"
             style="color: white;"></i></button>
       </form>
 
       <!-- Right section / Settings Dropdown -->
-     
       <div class="hidden sm:ml-6 sm:flex sm:items-center">
         @if (Auth::check())
           <div class="flex">
             <a class="cart-link" href="{{ url('cart') }}">
-              <i class="fa-solid fa-cart-shopping"></i>
+              <i class="fa-solid fa-cart-shopping"></i>Cart
             </a>
           </div>
           <x-dropdown align="right" width="48">
@@ -51,7 +49,7 @@
               <x-dropdown-link :href="route('profile.edit')">
                 {{ __('Profile') }}
               </x-dropdown-link>
-              <x-dropdown-link :href="route('home')">
+              <x-dropdown-link :href="route('/')">
                 {{ __('My Orders') }}
               </x-dropdown-link>
               @role('admin')
@@ -72,6 +70,14 @@
             </x-slot>
           </x-dropdown>
         @else
+          <ul class="nav justify-content-end">
+            <li class="nav-item">
+              <a class="nav-link text-black" href="{{ route('login') }}">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link bg-black text-white" href="{{ route('register') }}">Register</a>
+            </li>
+          </ul>
         @endif
       </div>
 
@@ -100,16 +106,16 @@
 
     <!-- Responsive Settings Options -->
     <div class="border-t border-gray-200 pt-4 pb-1">
-      <div class="px-4">
+      {{-- <div class="px-4">
         <div class="text-base font-medium text-gray-800">{{ Auth::user()->name }}</div>
         <div class="text-sm font-medium text-gray-500">{{ Auth::user()->email }}</div>
-      </div>
+      </div> --}}
 
       <div class="mt-3 space-y-1">
         <x-responsive-nav-link :href="route('profile.edit')">
           {{ __('Profile') }}
         </x-responsive-nav-link>
-        <x-responsive-nav-link :href="route('home')">
+        <x-responsive-nav-link :href="route('dashboard')">
           {{ __('My Orders') }}
         </x-responsive-nav-link>
         <x-responsive-nav-link :href="route('admin')">

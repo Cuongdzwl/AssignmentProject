@@ -20,10 +20,10 @@
   @vite(['resources/css/layout.css', 'resources/js/home.js'])
 </head>
 
-<body>
+<body class="font-sans antialiased">
   
     <!-- Header -->
-    @include('layouts.components.navigation-bar')
+    @include('layouts.navigation')
 
     <!-- Main Content -->
     <main>

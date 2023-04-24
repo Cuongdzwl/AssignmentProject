@@ -1,8 +1,6 @@
-<link rel="stylesheet" href="css/product.css">
 
-@extends('layouts.main')
 @section('title', 'Product Details')
-@section('content')
+ <x-app-layout>
 
   <section class="product">
     <div class="container">
@@ -30,9 +28,6 @@
     </div>
   </section>
 
-  {{-- <ul>
-    <li><a href="{{ route('product.index') }}">Product List</a></li>
-    <li><a href="{{ route('cart.index') }}">Cart List</a></li>
-  </ul> --}}
+  
 
-@endsection
+ </x-app-layout>
