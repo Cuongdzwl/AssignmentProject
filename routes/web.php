@@ -29,17 +29,16 @@ use LaravelDaily\PermissionsUI\Controllers\UserController;
 //--------------------------------------------------------------------------
 
 // Home Page
-Route::get('/', [HomeController::class, 'index'])->name('home');
+// Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/', [HomeController::class, 'index'] )->name('home');
 // Search
-Route::get('/search/{keyword}', [ProductController::class, 'searchAutoLoad'])->name('search');
-Route::redirect('/search', '/');
+Route::get('search', [ProductController::class, 'searchAutoLoad'])->name('search');
 // Category
 Route::get('/categories/{id}', [CategoryProductController::class, 'indexAutoLoad'])->name('category.products');
-Route::redirect('/categories', '/');
+
+Route::get('/products', [ProductController::class, 'indexAutoLoad'])->name('product');
+Route::get('/about', [HomeController::class, 'about'])->name('about');
 
 //--------------------------------------------------------------------------
 // Authentication Routes

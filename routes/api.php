@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Route;
 //
 Route::get('/products', [ProductController::class,'index']);
 Route::get('/categories/{id}', [CategoryProductController::class,'index']);
-Route::get('/categories', [CategoryController::class,'index']);
+Route::get('/categoriess', [CategoryController::class,'index']);
 Route::get('/search/{keyword}', [ProductController::class, 'search']);
 Route::get('/products', [ProductController::class,'index']);
 
