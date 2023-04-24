@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -24,7 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // if (Auth::guest()) return view('welcome');
-        return view('home');
+        
+        return view('dashboard');
     }
 }

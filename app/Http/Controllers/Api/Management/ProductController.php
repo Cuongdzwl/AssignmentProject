@@ -11,8 +11,10 @@ use GrahamCampbell\ResultType\Success;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 
+
 class ProductController extends Controller
 {
+    static $PRODUCT_IN_A_PAGE = 16;
     /**
      * Display a listing of the resource.
      *
@@ -20,22 +22,31 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::latest()->paginate(12);
+        $products = Product::latest()->paginate(ProductController::$PRODUCT_IN_A_PAGE);
         return ProductResource::collection($products);
     }
     public function indexAutoLoadProducts()
     {
-        $products = Product::latest()->paginate(15);
+        $products = Product::latest()->paginate(ProductController::$PRODUCT_IN_A_PAGE);
         return view('admin.products.index', compact('products'));
     }
-    public function searchAutoLoad($keyword)
+
+    public function indexAutoLoad(){
+        $products = Product::all()->paginate(ProductController::$PRODUCT_IN_A_PAGE);
+        return view('product.index',compact('products'));
+    }
+    public function searchAutoLoad(Request $request)
     {
-        $products = Product::where("name", 'LIKE', '%' . $keyword . '%')->latest()->paginate(12);
-        return view('search',compact('products'));
+        if($request->keyword){
+            $products = Product::where("name", 'LIKE', '%' . $request->keyword . '%')->latest()->paginate(ProductController::$PRODUCT_IN_A_PAGE);
+            return view('search',compact('products'));
+        }else
+        
+        return redirect('/');
     }
     public function search($keyword)
     {
-        $products = Product::where("name", 'LIKE', '%' . $keyword . '%')->latest()->paginate(12);
+        $products = Product::where("name", 'LIKE', '%' . $keyword . '%')->latest()->paginate(ProductController::$PRODUCT_IN_A_PAGE);
         return response()->json(
             [
                 'success' => true,
