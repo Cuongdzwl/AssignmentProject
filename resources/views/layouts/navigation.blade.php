@@ -56,7 +56,7 @@
               <x-dropdown-link :href="route('profile.edit')">
                 {{ __('Profile') }}
               </x-dropdown-link>
-              <x-dropdown-link :href="route('home')">
+              <x-dropdown-link :href="route('order')">
                 {{ __('My Orders') }}
               </x-dropdown-link>
               @role('admin')
@@ -124,7 +124,7 @@
         <x-responsive-nav-link :href="route('profile.edit')">
           {{ __('Profile') }}
         </x-responsive-nav-link>
-        <x-responsive-nav-link :href="route('home')">
+        <x-responsive-nav-link :href="route('order')">
           {{ __('My Orders') }}
         </x-responsive-nav-link>
         @role('admin')

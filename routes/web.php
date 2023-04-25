@@ -7,6 +7,8 @@ use App\Http\Controllers\Api\Management\CategoryProductController;
 use App\Http\Controllers\Api\Management\OrderController;
 use App\Http\Controllers\Api\Management\ProductController;
 use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
 
 use LaravelDaily\PermissionsUI\Controllers\RoleController;
@@ -37,8 +39,10 @@ Route::get('search', [ProductController::class, 'searchAutoLoad'])->name('search
 // Category
 Route::get('/categories/{id}', [CategoryProductController::class, 'indexAutoLoad'])->name('category.products');
 
+Route::get('images/{path}', function($path){})->name('image.show');
+
 Route::get('/products', [ProductController::class, 'indexAutoLoad'])->name('product');
-Route::get('/products/{id}', [ProductController::class, 'index'])->name('product.detail');
+Route::get('/products/{id}', [ProductController::class, 'display'])->name('product.detail');
 Route::get('/about', [HomeController::class, 'about'])->name('about');
 
 Route::fallback(function () {
@@ -53,6 +57,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/orders', [OrderController::class, 'indexAutoLoad'])->name('order');
     // User 
     Route::get('/cart', [CartController::class, 'indexAutoLoadCart'])->name('cart.view');
     // Admin Settings

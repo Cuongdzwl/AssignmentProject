@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Management;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
@@ -23,6 +24,16 @@ class OrderController extends Controller
         ], 200);
     }
 
+    public function indexAutoLoadOrders(){
+        $orders = Order::latest()->paginate(16);
+        return view('admin.orders.index',compact('orders'));
+    }
+    public function indexAutoLoad(){
+
+        $orders = Order::where('user_ID','=',Auth::user()->id);
+        return view('profile.order',compact('orders'));
+    }
+    
     /**
      * Store a newly created resource in storage.
      *
