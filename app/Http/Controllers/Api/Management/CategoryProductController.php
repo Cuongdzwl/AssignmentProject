@@ -24,7 +24,7 @@ class CategoryProductController extends Controller
     public function indexAutoLoad($id)
     {
         // Featured product
-        $products = CategoryProductController::getProducts($id);
+        $products = CategoryProductController::getProducts($id)->pa;
         return view('categories',compact('products'));
     }
 

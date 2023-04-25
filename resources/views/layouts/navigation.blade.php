@@ -6,7 +6,7 @@
       <div class="flex">
         <!-- Logo -->
         <div class="flex shrink-0 items-center">
-          <a href="{{ route('dashboard') }}">
+          <a href="{{ route('home') }}">
             <i class="fa-brands fa-pagelines fa-2xl" style="color: #636363;"></i>
           </a>
         </div>
@@ -15,8 +15,12 @@
       </div>
 
       {{-- Middle section --}}
-      <form class="m-auto flex">
-        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+      <form class="m-auto flex" action="{{ url('search')}}" method="get">
+        {{-- Search --}}
+        <input class="form-control" type="search" placeholder="Search" aria-label="Search" name="keyword" id="search">
+        <div id="results">
+          <div></div>
+        </div>
         <button class="bg-black py-1.5 px-3" type="submit"><i class="fa-solid fa-magnifying-glass"
             style="color: white;"></i></button>
       </form>
@@ -99,17 +103,17 @@
   <!-- Responsive Navigation Menu -->
   <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
     <div class="space-y-1 pt-2 pb-3">
-      <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-        {{ __('Dashboard') }}
+      <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
+        {{ __('Home') }}
       </x-responsive-nav-link>
     </div>
 
     <!-- Responsive Settings Options -->
     <div class="border-t border-gray-200 pt-4 pb-1">
-      {{-- <div class="px-4">
+      <div class="px-4">
         <div class="text-base font-medium text-gray-800">{{ Auth::user()->name }}</div>
         <div class="text-sm font-medium text-gray-500">{{ Auth::user()->email }}</div>
-      </div> --}}
+      </div>
 
       <div class="mt-3 space-y-1">
         <x-responsive-nav-link :href="route('profile.edit')">
@@ -118,10 +122,11 @@
         <x-responsive-nav-link :href="route('dashboard')">
           {{ __('My Orders') }}
         </x-responsive-nav-link>
+        @role('admin')
         <x-responsive-nav-link :href="route('admin')">
           {{ __('Admin Settings') }}
         </x-responsive-nav-link>
-
+        @endrole
         <!-- Authentication -->
         <form method="POST" action="{{ route('logout') }}">
           @csrf

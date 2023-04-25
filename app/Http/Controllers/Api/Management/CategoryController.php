@@ -7,6 +7,7 @@ use App\Http\Resources\CategoryResource;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Database\Eloquent\Collection;
 
 class CategoryController extends Controller
 {
@@ -17,7 +18,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::latest()->paginate(16);
+        $categories = Category::orderBy('category_name','desc')->paginate(16);
         return CategoryResource::collection($categories);
     }
 
