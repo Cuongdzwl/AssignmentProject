@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\Http\Resources\ProductResource;
+use App\Models\CategoryProduct;
 use App\Models\Product;
 use GrahamCampbell\ResultType\Success;
 use Illuminate\Support\Facades\Validator;
@@ -37,9 +38,9 @@ class ProductController extends Controller
     }
     public function searchAutoLoad(Request $request)
     {
-        if($request->keyword){
+        if($keyword = $request->keyword){
             $products = Product::where("name", 'LIKE', '%' . $request->keyword . '%')->latest()->paginate(ProductController::$PRODUCT_IN_A_PAGE);
-            return view('search',compact('products'));
+            return view('search',compact('products','keyword'));
         }
         
         return redirect('/');
@@ -58,6 +59,12 @@ class ProductController extends Controller
     public function edit($id){
         $product = Product::find($id);
         return view('admin.products.edit',compact('product'));
+    }
+
+    public function display($id){
+        $product = Product::find($id);
+        $categories = CategoryProduct::where('product_id','=',$id)->get();
+        return view('product.detail', compact('product', 'categories'));
     }
 
     /**
