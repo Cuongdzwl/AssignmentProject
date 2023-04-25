@@ -12,6 +12,7 @@ use App\Models\CartProduct;
 use App\Models\Product;
 use GrahamCampbell\ResultType\Success;
 use Illuminate\Support\Facades\Validator;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class CartController extends Controller
 {
@@ -21,11 +22,11 @@ class CartController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         // Authenticate
-        $user_id = auth('sanctum')->user()->id;
-
+        $token = PersonalAccessToken::findToken($request->session()->get('token'));
+        $user_id = $token->tokenable_id;
         // Building the query
         $cart_check = Cart::where('user_id', '=', $user_id);
 

@@ -24,22 +24,32 @@ use Illuminate\Support\Facades\Route;
 */
 
 //
-Route::get('/products', [ProductController::class,'index']);
 Route::get('/categories/{id}', [CategoryProductController::class,'index']);
 Route::get('/categoriess', [CategoryController::class,'index']);
 Route::get('/search/{keyword}', [ProductController::class, 'search']);
-Route::get('/products', [ProductController::class,'index']);
 
-Route::middleware('auth:sanctum')->group(
+Route::apiResource('products', ProductController::class);
+Route::patch('/products/{product}', [ProductController::class,'update']);
+
+Route::post('categories', [CategoryController::class, 'store']);
+Route::patch('categories/{category}', [CategoryController::class, 'update']);
+Route::delete('categories/{category}', [CategoryController::class, 'destroy']);
+
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
+
+Route::group(['middleware' => 'auth:sanctum'],
     function () {
-        Route::post('products', [ProductController::class, 'store']);
-        Route::put('products', [ProductController::class, 'update']);
-        Route::delete('products', [ProductController::class, 'delete']);
+        // Route::apiResource('categories', CategoryController::class);
+        Route::put('products/{product}', [ProductController::class, 'update']);
         
-        Route::apiResource('categories', CategoryController::class);
         Route::apiResource('cart', CartController::class);
+
         Route::apiResource('categoryproducts', CategoryProductController::class);
+
         Route::apiResource('users', UserController::class);
+
         Route::apiResource('orders', OrderController::class);
         Route::apiResource('orderProducts', OrderProductController::class);
     }

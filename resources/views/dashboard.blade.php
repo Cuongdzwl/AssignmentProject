@@ -14,7 +14,6 @@
                 alt="" />
             </a>
           </div>
-
         </div>
         <div class="image-item">
           <div class="image">
@@ -130,11 +129,8 @@
       <!-- HTML code for product list container and filter form -->
       <form id="filter-form">
         <label for="category-filter">Category:</label>
-        <select id="category-filter" name="category">
-          <option value="">All</option>
-          <option value="electronics">Electronics</option>
-          <option value="clothing">Clothing</option>
-          <option value="books">Books</option>
+        <select id="category_filter" name="category">
+          <option value="0">All</option>
         </select>
 
         <label for="price-filter">Price:</label>

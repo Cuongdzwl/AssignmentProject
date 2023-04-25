@@ -1,39 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Admin</title>
-</head>
-
-<body>
-  <h1>Admin</h1>
-  {{-- <a href="{{ route('admin.create') }}">Create</a> --}}
-  <table>
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Content</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      @foreach ($product as $product)
-        <tr>
-          <td>{{ $product->title }}</td>
-          <td>{{ $product->content }}</td>
-          <td>
-            {{-- <a href="{{ route('admin.edit', ['id' => $product->id]) }}">Edit</a>
-            <a href="{{ route('admin.delete', ['id' => $product->id]) }}">Delete</a> --}}
-          </td>
-        </tr>
-      @endforeach
-    </tbody>
-  </table>
-
-  
-</body>
-
-</html>
+@section('title', 'Admin Setting')
+{{-- <link rel="stylesheet" href="css/home.css"> --}}
+<x-app-layout>
+    @role('admin')
+        <section>
+            <div class="mx-auto mt-5 max-w-7xl rounded-lg bg-white p-5 m-3 shadow-md space-y-4">
+                <h1 class="text-3xl font-semibold text-center text-gray-900">Website CMS</h1>
+                <main class="my-8">
+                    <a class="rounded-md border border-transparent bg-indigo-400 px-4 py-2 text-xs font-semibold text-white hover:bg-indigo-300"
+                        href="{{ route('admin.product') }}"><button>Products CRUD</button></a>
+                    <a class="rounded-md border border-transparent bg-indigo-400 px-4 py-2 text-xs font-semibold text-white hover:bg-indigo-300"
+                        href="{{ route('admin.category') }}"><button>Categores CRUD</button></a>
+                    <a class="rounded-md border border-transparent bg-indigo-400 px-4 py-2 text-xs font-semibold text-white hover:bg-indigo-300"
+                        href="{{ route('admin.order') }}"><button>All Orders</button></a>
+                    <a class="rounded-md border border-transparent bg-indigo-400 px-4 py-2 text-xs font-semibold text-white hover:bg-indigo-300"
+                        href="/permissions/users"><button>Permissions Settings</button></a>
+                </main>
+            </div>
+        </section>
+    @endrole
+    @role('user')
+    @endrole
+</x-app-layout>

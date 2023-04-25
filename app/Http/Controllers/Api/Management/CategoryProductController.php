@@ -18,14 +18,15 @@ class CategoryProductController extends Controller
      */
     public function index($id)
     {
-        // Featured product
-        return $data = CategoryProductController::getProducts($id);
+        $data = CategoryProductController::getProducts($id)->get();
+        return response()->json(
+            ['data' => $data]
+        );
     }
     public function indexAutoLoad($id)
     {
-        // Featured product
-        $products = CategoryProductController::getProducts($id)->pa;
-        return view('categories',compact('products'));
+        $products = CategoryProductController::getProducts($id)->paginate(16);
+        return view('categories', compact('products'));
     }
 
     /**
@@ -117,15 +118,15 @@ class CategoryProductController extends Controller
         ], 404);
     }
 
-    public function getProducts($category_id){
+    public static function getProducts($category_id)
+    {
         return DB::table('category_product')
-        ->where('cat_ID','=', $category_id)
-        ->leftJoin('categories', 'category_product.cat_ID','=', 'categories.id')
-        ->leftJoin('products', 'category_product.product_ID','=', 'products.id')
-        ->select('category_product.cat_ID','categories.category_name', 'category_product.product_ID', 'products.name', 'products.image', 'products.price')
-        ->get();
+            ->where('cat_ID', '=', $category_id)
+            ->leftJoin('categories', 'category_product.cat_ID', '=', 'categories.id')
+            ->leftJoin('products', 'category_product.product_ID', '=', 'products.id')
+            ->select('category_product.cat_ID', 'categories.category_name', 'category_product.product_ID', 'products.name', 'products.image', 'products.price');
     }
-    public function category(){
-
+    public function category()
+    {
     }
 }

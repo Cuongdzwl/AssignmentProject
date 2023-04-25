@@ -26,6 +26,12 @@ class CategoryController extends Controller
         $categories = Category::latest()->paginate(16);
         return view('admin.categories.index',compact('categories'));
     }
+    public function edit($id)
+    {
+        $category = Category::find($id);
+        $products = CategoryProductController::getProducts($id)->paginate(16);
+        return view('admin.categories.edit', compact('category', 'products'));
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -87,7 +93,7 @@ class CategoryController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
-                'message' => 'Category creating failed',
+                'message' => 'Category updating failed',
                 'error' => $validator->messages()
             ], 201);
         }
@@ -98,7 +104,7 @@ class CategoryController extends Controller
             // Return success response
             return response()->json([
                 'success' => true,
-                'message' => 'Category created',
+                'message' => 'Category updated',
                 'data' => $category
             ], 201);
         }

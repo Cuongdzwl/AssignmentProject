@@ -1,11 +1,12 @@
 <style>
   .site-footer {
-    /* position: absolute;
+    position: relative;
     bottom: 0;
     right: 0;
-    left: 0; */
+    left: 0;
     background-color: #26272b;
     padding: 45px 0 20px;
+    margin-top: 120px;
     font-size: 15px;
     line-height: 24px;
     color: #737373;
@@ -160,7 +161,7 @@
   }
 </style>
 
-<footer class="site-footer">
+<footer class="site-footer fixed bottom-0 w-full">
   <div class="container">
     <div class="row">
       <div class="col-sm-12 col-md-6">
