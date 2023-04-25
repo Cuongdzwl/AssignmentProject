@@ -1,8 +1,11 @@
+@section('title','Login')
 <x-guest-layout>
   <!-- Session Status -->
   <x-auth-session-status class="mb-4" :status="session('status')" />
 
   <form method="POST" action="{{ route('login') }}">
+        <h1 class="text-center my-5 text-4xl">Sign-In</h1>
+
     @csrf
 
     <!-- Email Address -->

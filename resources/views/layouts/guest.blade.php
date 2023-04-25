@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <title>{{ config('app.name', 'Laravel') }}</title>
+  <title>@yield('title')</title>
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.bunny.net">
@@ -25,7 +25,7 @@
   <div class="flex min-h-screen flex-col items-center pt-6 sm:justify-center sm:pt-0">
 
     <a href="/">
-      <i class="fa-brands fa-pagelines fa-2xl text-slate-50"></i>
+      <i class="fa-brands fa-pagelines fa-xl text-slate-50"></i>
     </a>
 
     <div class="mt-6 w-full overflow-hidden bg-white px-6 py-4 shadow-md sm:max-w-md sm:rounded-lg">
