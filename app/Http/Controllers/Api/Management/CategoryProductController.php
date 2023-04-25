@@ -24,9 +24,10 @@ class CategoryProductController extends Controller
         );
     }
     public function indexAutoLoad($id)
-    {
+    {  
+        $category = Category::find($id);
         $products = CategoryProductController::getProducts($id)->paginate(16);
-        return view('categories', compact('products'));
+        return view('categories', compact('products','category'));
     }
 
     /**

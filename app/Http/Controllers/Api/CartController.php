@@ -65,11 +65,6 @@ class CartController extends Controller
         if ($cart_check->count() > 1) {
             // Destroy all cart items
             $cart_check->delete();
-
-            return response()->json([
-                'success' => false,
-                'message' => 'Something went wrong'
-            ]);
         }
         $cart = CartController::getCart($user_id);
         // Building the cart
