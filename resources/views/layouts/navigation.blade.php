@@ -15,25 +15,27 @@
       </div>
 
       {{-- Middle section --}}
-      <form class="m-auto flex" action="{{ url('search')}}" method="get">
+      <form class="m-auto flex" action="{{ url('search') }}" method="get">
         {{-- Search --}}
-        <input class="form-control" type="search" placeholder="Search" aria-label="Search" name="keyword" id="search">
+        <input class="form-control" type="search" placeholder="Search" aria-label="Search" name="keyword"
+          id="search">
         <div id="results">
-          <div></div>
+          
         </div>
         <button class="bg-black py-1.5 px-3" type="submit"><i class="fa-solid fa-magnifying-glass"
             style="color: white;"></i></button>
       </form>
 
       <!-- Right section / Settings Dropdown -->
-     
       <div class="hidden sm:ml-6 sm:flex sm:items-center">
         @if (Auth::check())
-          <div class="flex">
-            <a class="cart-link" href="{{ url('cart') }}">
-              <i class="fa-solid fa-cart-shopping"></i>
-            </a>
+          {{-- Cart --}}
+          <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+            <x-nav-link class="cart-link" href="{{ url('cart') }}">
+              <i class="fa-solid fa-cart-shopping"></i>Cart
+            </x-nav-link>
           </div>
+
           <x-dropdown align="right" width="48">
             <x-slot name="trigger">
               <button
@@ -75,7 +77,14 @@
             </x-slot>
           </x-dropdown>
         @else
-        
+          <ul class="nav justify-content-end">
+            <li class="nav-item">
+              <a class="nav-link text-black" href="{{ route('login') }}">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link bg-black text-white" href="{{ route('register') }}">Register</a>
+            </li>
+          </ul>
         @endif
       </div>
 
@@ -106,8 +115,8 @@
     <div class="border-t border-gray-200 pt-4 pb-1">
       <div class="px-4">
         @if (Auth::check())
-        <div class="text-base font-medium text-gray-800">{{ Auth::user()->name }}</div>
-        <div class="text-sm font-medium text-gray-500">{{ Auth::user()->email }}</div>         
+          <div class="text-base font-medium text-gray-800">{{ Auth::user()->name }}</div>
+          <div class="text-sm font-medium text-gray-500">{{ Auth::user()->email }}</div>
         @endif
       </div>
 
@@ -115,13 +124,13 @@
         <x-responsive-nav-link :href="route('profile.edit')">
           {{ __('Profile') }}
         </x-responsive-nav-link>
-        <x-responsive-nav-link :href="route('home')">
+        <x-responsive-nav-link :href="route('dashboard')">
           {{ __('My Orders') }}
         </x-responsive-nav-link>
         @role('admin')
-        <x-responsive-nav-link :href="route('admin')">
-          {{ __('Admin Settings') }}
-        </x-responsive-nav-link>
+          <x-responsive-nav-link :href="route('admin')">
+            {{ __('Admin Settings') }}
+          </x-responsive-nav-link>
         @endrole
         <!-- Authentication -->
         <form method="POST" action="{{ route('logout') }}">

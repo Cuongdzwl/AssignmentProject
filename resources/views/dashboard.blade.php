@@ -2,9 +2,9 @@
 {{-- <link rel="stylesheet" href="css/home.css"> --}}
 @vite('/resources/css/home.css')
 <x-app-layout>
-  <section class="featured-products">
+  <section class="featured-products pt-2">
     <div class="container">
-      <h2 class="flex justify-center text-3xl">Featured Products</h2>
+      <h2 class="flex justify-center text-3xl py-3">Featured Products</h2>
       <div id="image-slider">
         <div class="image-item">
           <div class="image">
@@ -122,9 +122,9 @@
     </div>
   </section>
 
-  <section class="latest-product">
+  <section class="latest-product py-2">
     <div class="container">
-      <h2 class="flex justify-center text-3xl">Latest Products</h2>
+      <h2 class="flex justify-center text-3xl py-3">Latest Products</h2>
 
       <!-- HTML code for product list container and filter form -->
       <form id="filter-form">
@@ -143,12 +143,11 @@
       </form>
 
       <div class="row" id="product_all">
-          
       </div>
     </div>
   </section>
 
-  @vite('/resources/js/data/loadProducts.js')
+  {{-- @vite('/resources/js/data/loadProducts.js') --}}
   <script type="text/javascript">
     $(document).ready(function() {
       $("#image-slider").slick({

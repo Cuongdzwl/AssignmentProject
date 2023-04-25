@@ -1,6 +1,7 @@
 <style>
   .site-footer {
     position: relative;
+    top: 250px;
     bottom: 0;
     right: 0;
     left: 0;
