@@ -39,18 +39,26 @@
         </div>
       </div>
       <div class="col-md-4">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Total</h5>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed imperdiet elit
-              eu aliquet
-              tristique. Maecenas sit amet dapibus erat.</p>
-            <a href="#" class="btn btn-primary">Buy Now</a>
-          </div>
+        <div class="totals-item">
+          <label>Items:</label>
+          <div class="totals-value" id="cart-subtotal">0</div>
         </div>
+        <div class="totals-item">
+          <label>Tax (5%):</label>
+          <div class="totals-value" id="cart-tax">0</div>
+        </div>
+        <div class="totals-item">
+          <label>Shipping:</label>
+          <div class="totals-value" id="cart-shipping">0</div>
+        </div>
+        <div class="totals-item totals-item-total">
+          <label>Total:</label>
+          <div class="totals-value" id="cart-total">0</div>
+        </div>
+        <button class="checkout">Checkout</button>
       </div>
+
     </div>
 </section>
-
 
 </x-app-layout>

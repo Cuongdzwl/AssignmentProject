@@ -1,9 +1,10 @@
 <style>
   .site-footer {
-    /* position: absolute;
+    position: relative;
+    top: 250px;
     bottom: 0;
     right: 0;
-    left: 0; */
+    left: 0;
     background-color: #26272b;
     padding: 45px 0 20px;
     font-size: 15px;

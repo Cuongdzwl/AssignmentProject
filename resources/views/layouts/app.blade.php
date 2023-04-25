@@ -26,7 +26,7 @@
 </head>
 
 <body class="font-sans antialiased">
-  <div class="min-h-screen bg-gray-100">
+  <div class="bg-gray-100">
     @include('layouts.navigation')
 
     <!-- Page Content -->
@@ -36,6 +36,21 @@
 
     @include('layouts.components.footer')
   </div>
+  <script>
+    $(document).ready(function() {
+    // show search results on click of search input
+    $('#search').on('click', function() {
+      $('#results').show();
+    });
+
+    // hide search results when clicked outside of search input or results div
+    $(document).on('click', function(e) {
+      if (!$(e.target).closest('#search, #results').length) {
+        $('#results').hide();
+      }
+    });
+  });
+  </script>
 </body>
 
 </html>

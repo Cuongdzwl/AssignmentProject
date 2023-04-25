@@ -32,7 +32,7 @@ class ProductController extends Controller
     }
 
     public function indexAutoLoad(){
-        $products = Product::all()->paginate(ProductController::$PRODUCT_IN_A_PAGE);
+        $products = Product::paginate(ProductController::$PRODUCT_IN_A_PAGE);
         return view('product.index',compact('products'));
     }
     public function searchAutoLoad(Request $request)
