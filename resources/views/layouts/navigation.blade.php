@@ -124,7 +124,7 @@
         <x-responsive-nav-link :href="route('profile.edit')">
           {{ __('Profile') }}
         </x-responsive-nav-link>
-        <x-responsive-nav-link :href="route('dashboard')">
+        <x-responsive-nav-link :href="route('home')">
           {{ __('My Orders') }}
         </x-responsive-nav-link>
         @role('admin')

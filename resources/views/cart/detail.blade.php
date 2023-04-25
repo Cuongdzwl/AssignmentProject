@@ -47,10 +47,6 @@
           <label>Tax (5%):</label>
           <div class="totals-value" id="cart-tax">0</div>
         </div>
-        <div class="totals-item">
-          <label>Shipping:</label>
-          <div class="totals-value" id="cart-shipping">0</div>
-        </div>
         <div class="totals-item totals-item-total">
           <label>Total:</label>
           <div class="totals-value" id="cart-total">0</div>
