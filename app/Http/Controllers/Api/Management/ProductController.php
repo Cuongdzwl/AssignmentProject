@@ -40,7 +40,7 @@ class ProductController extends Controller
         if($request->keyword){
             $products = Product::where("name", 'LIKE', '%' . $request->keyword . '%')->latest()->paginate(ProductController::$PRODUCT_IN_A_PAGE);
             return view('search',compact('products'));
-        }else
+        }
         
         return redirect('/');
     }
@@ -55,6 +55,11 @@ class ProductController extends Controller
         );
     }
 
+    public function edit($id){
+        $product = Product::find($id);
+        return view('admin.products.edit',compact('product'));
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -63,6 +68,7 @@ class ProductController extends Controller
      */
     public function store(Product $product, Request $request)
     {
+
         // Validation
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
@@ -85,7 +91,7 @@ class ProductController extends Controller
 
         // Edit the product image's path
         if ($image = $request->file('image')) {
-            $destianationPath = 'images/';
+            $destianationPath = '/images';
             $profileImage = date('Ymdis') . '.' . $image->getClientOriginalName();
             $image->move($destianationPath, $profileImage); // Move the image to the destination directory
             $product['image'] = $profileImage;

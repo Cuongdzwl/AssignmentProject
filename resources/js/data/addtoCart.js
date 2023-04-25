@@ -13,6 +13,7 @@ $(document).ready(function () {
             data: {
                 _token: $('meta[name="csrf-token"]').attr("content"), // Include CSRF token
             },
+            
             success: function (response) {
                 // Handle success response
                 console.log(response);

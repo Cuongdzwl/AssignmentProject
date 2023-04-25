@@ -38,8 +38,12 @@ Route::get('search', [ProductController::class, 'searchAutoLoad'])->name('search
 Route::get('/categories/{id}', [CategoryProductController::class, 'indexAutoLoad'])->name('category.products');
 
 Route::get('/products', [ProductController::class, 'indexAutoLoad'])->name('product');
+Route::get('/products/{id}', [ProductController::class, 'index'])->name('product.detail');
 Route::get('/about', [HomeController::class, 'about'])->name('about');
 
+Route::fallback(function () {
+    return view('errors.404');
+});
 //--------------------------------------------------------------------------
 // Authentication Routes
 //--------------------------------------------------------------------------
@@ -54,8 +58,15 @@ Route::middleware('auth')->group(function () {
     // Admin Settings
     Route::get('/admin', [HomeController::class, 'admin'])->name('admin');
     Route::get('/admin/orders', [OrderController::class, 'indexAutoLoadOrders'])->name('admin.order');
+
     Route::get('/admin/products', [ProductController::class, 'indexAutoLoadProducts'])->name('admin.product');
+    Route::get('/admin/products/create', function(){ return view('admin.products.create');})->name('admin.product.create');
+    Route::get('/admin/products/edit/{id}', [ProductController::class, 'edit'])->name('admin.product.edit');
+
     Route::get('/admin/categories', [CategoryController::class, 'indexAutoLoadCategories'])->name('admin.category');
+    Route::get('/admin/categories/create',function(){ return view('admin.categories.create');})->name('admin.category.create');
+    Route::get('/admin/categories/edit/{id}', [CategoryController::class, 'edit'])->name('admin.category.edit');
+    // Route::get('/admin/categories/{id}', [CategoryController::class, 'indexAutoLoadCategories'])->name('admin.category');
 
 });
 
