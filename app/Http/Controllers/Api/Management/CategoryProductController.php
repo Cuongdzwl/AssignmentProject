@@ -49,6 +49,15 @@ class CategoryProductController extends Controller
                 'error' => $validator->messages()
             ]);
         }
+        // Check if product already exists in the category retur
+        if(DB::table('category_product')->where("cat_ID","=", $request->cat_ID)->first()->product_ID === $request->product_ID){
+            return response()->json([
+                'success' => false,
+                'message' => 'Product already exists in category',
+            ]);
+        }
+        //
+        return response()->json(DB::table('category_product')->where("cat_ID", "=", $request->cat_ID)->first()->product_ID === $request->product_ID);
         $categoryProduct = CategoryProduct::create($request->all());
         return response()->json([
             'success' => true,
