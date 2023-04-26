@@ -2,7 +2,8 @@
 <x-app-layout>
   <section class="Show all product">
     <div class="container">
-      <div class="row">   
+      <div class="row"> 
+        <div id="add-to-cart-message"></div>  
         @foreach ($products as $product)
           <div class="col-2 pb-3">
             <div class="card border-none transition-shadow hover:shadow-2xl">
