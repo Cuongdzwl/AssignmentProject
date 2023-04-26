@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api\Management;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Cart;
+use App\Models\CartProduct;
+use App\Models\OrderProduct;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -46,18 +48,27 @@ class OrderController extends Controller
     $order['user_ID'] = $user_id;
     $order['total'] = $request['total'];
     $order['status'] = 'complete';
-    // save order
+    $cart = Cart::where('user_id', '=', $user_id)->get();
+    if($order['total']!=0){
+        // save order
     $order = Order::create($order);
-    $carts = Cart::where('user_id', '=', $user_id)->get();
-    foreach($carts as $cart){
-        $cart->delete();
+    $cartProducts = CartProduct::where('cart_ID', '=', $cart[0]->id )->get();
+    foreach($cartProducts as $cartProduct){
+        $orderProduct['order_ID'] = $order['id'];
+        $orderProduct['product_ID'] =$cartProduct['product_ID'];
+        $orderProduct['quantity'] =$cartProduct['quantity'];
+        OrderProduct::create($orderProduct);
+        $cartProduct->delete();
     }
+    }
+    return view('cart.detail',compact('cart'));
+
+
+
 
     // return detail
-    return response()->json([
-        'success' => true,
-        'data' => $order,
-    ], 201);
+
+
     }
 
     /**

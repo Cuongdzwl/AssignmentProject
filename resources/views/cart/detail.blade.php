@@ -64,10 +64,10 @@
           <label>Total:</label>
         <div class="totals-value" id="cart-total">{{$total + $tax}}</div>
     </div>
-    <form method="post">
+    <form action="{{route('cart.view')}}" method="post">
         @csrf
         <input type="hidden" name="total" value = "{{$total + $tax}}">
-        <button type="submit" class="checkout">Checkout</button>
+        <button type="submit" class="checkout btn">Checkout</button>
         {{-- all cart to all --}}
 
     </form>
