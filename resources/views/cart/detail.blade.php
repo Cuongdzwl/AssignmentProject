@@ -4,6 +4,7 @@
 
     <div class="container">
       <div class="row">
+        <h1 class="text-4xl text-center my-8 font-semibold">My Shoping Cart</h1>
         <div class="col-md-8">
           <div class="card">
             <div class="card-body">
@@ -29,19 +30,23 @@
                   @endif
                   <tr>
                     <td>{{ $item->name }}</td>
-                    <td>{{ $item->price }}</td>
+                    <td>$ {{ $item->price }}</td>
                     <td>
-                      {{ $item->quantity }}
-                      {{-- <input type="number" value="{{ $item->quantity }}" min="1" class="form-control"> --}}
+                      <input type="number" value="{{ $item->quantity }}" min="1" data-id="{{$item->product_id}}" class="item-quantity form-control">
                     </td>
-                    <td id="subtotal">{{ $item->price * $item->quantity }}</td>
-                    {{ $total += $item->price * $item->quantity }}
-                    {{ $items += $item->quantity }}
+                    <td id="subtotal">$ {{ $item->price * $item->quantity }}</td>
+
+                    @php 
+                    // Caculate total
+                    $total += $item->price * $item->quantity;
+                    $items += $item->quantity ;
+                    @endphp
                     <td>
+                      <i class="fa fa-trash-o" aria-hidden="true"></i>
                     </td>
                   </tr>
-                  <button class="delete btn btn-danger" data-id="{{ $item->product_id }}">Clear all</button>
-                @endforeach
+                  @endforeach
+                  <button class="delete-all btn btn-danger" data-id="{{ $item->product_id }}">Clear all</button>
                 @vite('/resources/js/data/loadCart.js')
               </tbody>
             </table>
@@ -56,12 +61,12 @@
         </div>
         <div class="totals-item flex justify-between pb-3">
           <label>Tax (5%):</label>
-          <div class="totals-value" id="cart-tax"> {{ $tax = ($total / 100) * 5 }}</div>
+          <div class="totals-value" id="cart-tax">$ {{ $tax = ($total / 100) * 5 }}</div>
         </div>
         <hr>
         <div class="totals-item totals-item-total flex justify-between py-3 font-bold text-red-500">
           <label>Total:</label>
-        <div class="totals-value" id="cart-total">{{$total + $tax}}</div>
+        <div class="totals-value" id="cart-total">$ {{$total + $tax}}</div>
     </div>
     <form action="{{route('cart.view')}}" method="post">
         @csrf
