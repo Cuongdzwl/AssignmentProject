@@ -22,20 +22,20 @@ function showFilteredProducts(id) {
             $.each(data.data, function (index, item) {
                 if (index == 12) return false;
                 var ele =
-                    '<div class="col-md-3">' +
+                    '<div class="col-2 pb-3">' +
                     "<a href=/products/" +
                     item.product_ID +
                     ">" +
-                    '<div class="latest-item" id=' +
+                    '<div class="card border-none transition-shadow hover:shadow-2xl" id=' +
                     item.product_ID +
                     ">" +
                     '<img class="latest-image" src="' +
                     item.image +
                     '"alt="Product Image" width="200px">' +
-                    '<h6 class="product-title">' +
+                    '<h6 class="product-title line-clamp-2 text-ellipsis px-2 text-sm">' +
                     item.name +
                     "</h6>" +
-                    '<p class="product-price">' +
+                    '<p class="product-price pt-2 px-2 font-bold">$' +
                     item.price +
                     "</p>" +
                     "</div>" +
@@ -95,20 +95,19 @@ function generateElements(data) {
     $.each(data.data, function (index, item) {
         if (index == 12) return false;
         var ele =
-            '<div class="col-md-3">' +
+            '<div class="col-2 pb-3">' +
             "<a href=/products/" +
             item.id +
             ">" +
-            '<div class="latest-item" id=' +
+            '<div class="card border-none transition-shadow hover:shadow-2xl" id=' +
             item.id +
             ">" +
-            '<img class="latest-image" src="' +
-            item.image +
-            '"alt="Product Image" width="200px">' +
-            '<h6 class="product-title">' +
+            '<img class="image" src="{{ asset('+"'" +item.image +"'"+' ) }}' +
+            '"alt="Product Image" width="200px">'  +
+            '<h6 class="product-title line-clamp-2 text-ellipsis px-2 text-sm">' +
             item.name +
             "</h6>" +
-            '<p class="product-price">' +
+            '<p class="product-price pt-2 px-2 font-bold">$' +
             item.price +
             "</p>" +
             "</div>" +
