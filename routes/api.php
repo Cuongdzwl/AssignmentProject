@@ -42,7 +42,8 @@ Route::group(
         Route::put('cart', [CartController::class, 'update']);
         Route::delete('cart',[CartController::class,'destroy']);
         
-        Route::apiResource('products', ProductController::class);
+        Route::post('products', [ProductController::class, 'store']);
+        Route::delete('products/{product}', [ProductController::class, 'update']);
         Route::patch('products/{product}', [ProductController::class, 'update']);
         
         Route::post('categories', [CategoryController::class, 'store']);

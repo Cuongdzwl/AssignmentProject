@@ -100,8 +100,8 @@ class ProductController extends Controller
         if ($image = $request->file('image')) {
             $destianationPath = '/images';
             $profileImage = date('Ymdis') . '.' . $image->getClientOriginalName();
-            $image->move($destianationPath, $profileImage); // Move the image to the destination directory
-            $product['image'] = $profileImage;
+            $path = $image->storeAs($profileImage, $profileImage);
+            $product['image'] = $path;
 
             Product::create($product);
 
@@ -159,10 +159,11 @@ class ProductController extends Controller
         $product = Product::find($product->id);
 
         if ($image = $request->file('image')) {
-            $destianationPath = 'images/';
+            $destianationPath = '/images';
             $profileImage = date('Ymdis') . '.' . $image->getClientOriginalName();
-            $image->move($destianationPath, $profileImage);
-            $newProduct['image'] = $profileImage;
+            $path = $destianationPath . $profileImage;
+            $path = $image->storeAs($profileImage, $profileImage);
+            $product['image'] = $path;
         } else {
             unset($newProduct['image']);
         }
