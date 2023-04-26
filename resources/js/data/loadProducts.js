@@ -102,7 +102,7 @@ function generateElements(data) {
             '<div class="card border-none transition-shadow hover:shadow-2xl" id=' +
             item.id +
             ">" +
-            '<img class="image" src="{{ asset('+"'" +item.image +"'"+' ) }}' +
+            '<img class="image" src="'+item.image+ 
             '"alt="Product Image" width="200px">'  +
             '<h6 class="product-title line-clamp-2 text-ellipsis px-2 text-sm">' +
             item.name +

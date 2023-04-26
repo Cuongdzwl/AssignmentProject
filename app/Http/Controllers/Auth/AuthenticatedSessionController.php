@@ -36,7 +36,7 @@ class AuthenticatedSessionController extends Controller
         $token = $user->createToken('access_token',)->plainTextToken;
         Session::put('access_token', $token);
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        return redirect('/');
     }
 
     /**
@@ -54,7 +54,6 @@ class AuthenticatedSessionController extends Controller
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
-
 
         return redirect('/');
     }

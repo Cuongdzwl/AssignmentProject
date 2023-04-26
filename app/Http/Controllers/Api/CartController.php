@@ -134,9 +134,10 @@ class CartController extends Controller
             $cart_new['quantity'] = "1";
         }
 
-        $cart = CartProduct::where('product_id', '=', $cart_new['product_ID'])->where('cart_id', '=', $cart_id);
         // check if the product already exists
+        $cart = CartProduct::where('product_id', '=', $cart_new['product_ID'])->where('cart_id', '=', $cart_id);
         if ($cart->count() != 0) {
+            // remove the _method due to a bug
             unset($cart_new['_method']);
 
             if(isset($cart_new['add_to_cart'])) {
@@ -152,7 +153,7 @@ class CartController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Cart updated successfully'
+            'message' => 'Product added to cart successfully'
         ],200);
     }
 

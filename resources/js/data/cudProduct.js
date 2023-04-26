@@ -1,7 +1,9 @@
 $(document).ready(function () {
     $("#create_product").submit(function (e) {
         e.preventDefault();
-
+        var formData = new FormData(this);
+        console.log(formData);
+        formData.append('_method','POST');
         $.ajaxSetup({
             headers: {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
@@ -9,16 +11,16 @@ $(document).ready(function () {
             },
         });
         // create a new FormData object
-        var formData = new FormData(this);
 
         $.ajax({
             type: "POST",
             url: "http://127.0.0.1:8000/api/products",
             data: formData,
             processData: false,
-            contentType: false,
+            contentType:  false,
+
             success: function (response) {
-                var html = '';
+                var html = "";
                 if (response.success) {
                     html =
                         '<div class ="mb-4 rounded-lg bg-green-100 px-6 py-5 text-base text-green-700" role = "alert" >' +
@@ -31,12 +33,17 @@ $(document).ready(function () {
                     $("#create_product")[0].reset();
                 } else {
                     html =
-                        '<div class ="mb-4 rounded-lg bg-red-100 px-6 py-5 text-base text-red-700" role = "alert" >'+response.message +'</div>';
+                        '<div class ="mb-4 rounded-lg bg-red-100 px-6 py-5 text-base text-red-700" role = "alert" >' +
+                        response.error; +
+                        "</div>";
                     $("#alert").html(html);
                     setTimeout(function () {
                         $("#alert").html("");
                     }, 8000);
                 }
+            },
+            error: function (xhr, status, error) {
+                console.log(xhr, status, error);
             },
         });
     });
@@ -61,9 +68,8 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: function (response) {
-                var html ='';
+                var html = "";
                 if (response.success) {
-                    console.log(response);
                     html =
                         '<div class ="mb-4 rounded-lg bg-green-100 px-6 py-5 text-base text-green-700" role = "alert" >' +
                         response.message +
@@ -76,13 +82,16 @@ $(document).ready(function () {
                 } else {
                     html =
                         '<div class ="mb-4 rounded-lg bg-red-100 px-6 py-5 text-base text-red-700" role = "alert" >' +
-                        response.message + 
+                        response.message +
                         "</div>";
                     $("#alert").html(html);
                     setTimeout(function () {
                         $("#alert").html("");
                     }, 8000);
                 }
+            },
+            error: function (xhr, status, error) {
+                console.log(xhr, status, error);
             },
         });
     });
@@ -93,7 +102,6 @@ $(document).on("click", "#delete", function (e) {
     var id = $(this).data("id");
     var confirmDelete = confirm("Are you sure you want to delete this item?");
     if (confirmDelete) {
-        console.log(id);
         deleteItem(id);
     }
 });
@@ -109,7 +117,6 @@ function deleteItem(id) {
         type: "DELETE",
         url: "http://127.0.0.1:8000/api/products/" + id,
         success: function (response) {
-            console.log(response);
             $("#item-" + id).remove();
         },
         error: function (xhr, status, error) {
