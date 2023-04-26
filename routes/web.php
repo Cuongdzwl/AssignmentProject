@@ -61,7 +61,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/orders', [OrderController::class, 'indexAutoLoad'])->name('order');
     // User
     Route::get('/cart', [CartController::class, 'indexAutoLoadCart'])->name('cart.view');
-    Route::post('/cart', [OrderController::class, 'checkout'])->name('checkOutCart');
+    Route::post('/cart', [OrderController::class, 'checkout'])->name('cart.view');
     // Admin Settings
     Route::get('/admin', [HomeController::class, 'admin'])->name('admin');
     Route::get('/admin/orders', [OrderController::class, 'indexAutoLoadOrders'])->name('admin.order');

@@ -61,13 +61,13 @@
         <hr>
         <div class="totals-item totals-item-total flex justify-between py-3 font-bold text-red-500">
           <label>Total:</label>
-          <div class="totals-value" id="cart-total">{{ $total + $tax }}</div>
-        </div>
-        <form method="post">
-          @csrf
-          <input type="hidden" name="total" value="{{ $total + $tax }}">
-          <button type="submit" class="checkout bg-dark w-full p-2 text-white transition-opacity hover:opacity-70">Checkout</button>
-          {{-- all cart to all --}}
+        <div class="totals-value" id="cart-total">{{$total + $tax}}</div>
+    </div>
+    <form action="{{route('cart.view')}}" method="post">
+        @csrf
+        <input type="hidden" name="total" value = "{{$total + $tax}}">
+        <button type="submit" class="checkout btn">Checkout</button>
+        {{-- all cart to all --}}
 
         </form>
       </div>
