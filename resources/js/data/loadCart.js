@@ -65,18 +65,22 @@ function updateCartProduct(product_id, quantity) {
 }
 
 function deleteProduct(id){
-    $("#item-"+id).remove();
-    //  $.ajax({
-    //      url: "http://127.0.0.1:8000/api/cart",
-    //      type: "DELETE",
-    //      dataType: "application/json",
-    //      headers: {
-    //          "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"), // Include CSRF token
-    //          "Authorization": "Bearer " + $('meta[name="token"]').attr("content"), // Include access token
-    //      },
-    //      success: function (response) {},
-    //      error: function (xhr) {
-    //          console.log(xhr.responseText);
-    //      },
-    //  });
+    $.ajax({
+        url: "http://127.0.0.1:8000/api/cart/",
+        type: "POST",
+        dataType: "json",
+        data:{
+            '_method': 'DELETE',
+        },
+         headers: {
+             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"), // Include CSRF token
+             "Authorization": "Bearer " + $('meta[name="token"]').attr("content"), // Include access token
+            },
+            success: function (response) {
+            $("#item-"+id).remove();
+         },
+         error: function (xhr) {
+             console.log(xhr.responseText);
+         },
+     });
 }

@@ -29,10 +29,11 @@
                     </td>
                     <td id="subtotal">{{ $item->price * $item->quantity }}</td>
                     <td>
-                      <a href="#" class="btn btn-danger">Delete</a>
                     </td>
                   </tr>
+                  <button class="delete btn btn-danger">Clear all</button>
                 @endforeach
+                @vite('/resources/js/data/loadCart.js')
               </tbody>
             </table>
           </div>
