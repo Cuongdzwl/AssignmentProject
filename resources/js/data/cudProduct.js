@@ -5,7 +5,7 @@ $(document).ready(function () {
         $.ajaxSetup({
             headers: {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-                // 'Authorization':
+                "Authorization":"Bearer " + $('meta[name="token"]').attr("content"), // Include access token
             },
         });
         // create a new FormData object
@@ -18,17 +18,20 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: function (response) {
+                var html = '';
                 if (response.success) {
                     html =
-                        '<div class ="mb-4 rounded-lg bg-green-100 px-6 py-5 text-base text-green-700" role = "alert" >Product Created!</div>';
+                        '<div class ="mb-4 rounded-lg bg-green-100 px-6 py-5 text-base text-green-700" role = "alert" >' +
+                        response.message +
+                        "</div>";
                     $("#alert").html(html);
                     setTimeout(function () {
                         $("#alert").html("");
-                    }, 3000);
+                    }, 5000);
                     $("#create_product")[0].reset();
                 } else {
                     html =
-                        '<div class ="mb-4 rounded-lg bg-red-100 px-6 py-5 text-base text-red-700" role = "alert" >Product Created Fail!</div>';
+                        '<div class ="mb-4 rounded-lg bg-red-100 px-6 py-5 text-base text-red-700" role = "alert" >'+response.message +'</div>';
                     $("#alert").html(html);
                     setTimeout(function () {
                         $("#alert").html("");
@@ -45,7 +48,7 @@ $(document).ready(function () {
         $.ajaxSetup({
             headers: {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-                // 'Authorization':
+                "Authorization":"Bearer " + $('meta[name="token"]').attr("content"), // Include access token
             },
         });
         // create a new FormData object
@@ -99,7 +102,7 @@ function deleteItem(id) {
     $.ajaxSetup({
         headers: {
             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-            // 'Authorization':
+             "Authorization":"Bearer " + $('meta[name="token"]').attr("content"), // Include access token
         },
     });
     $.ajax({
