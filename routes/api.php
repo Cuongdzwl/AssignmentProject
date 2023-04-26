@@ -24,12 +24,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 //
-Route::get('/categories/{id}', [CategoryProductController::class,'index']);
-Route::get('/categoriess', [CategoryController::class,'index']);
+Route::get('/categories/{id}', [CategoryProductController::class, 'index']);
+Route::get('/categoriess', [CategoryController::class, 'index']);
 Route::get('/search/{keyword}', [ProductController::class, 'search']);
 
 Route::apiResource('products', ProductController::class);
-Route::patch('/products/{product}', [ProductController::class,'update']);
+Route::patch('/products/{product}', [ProductController::class, 'update']);
 
 Route::post('categories', [CategoryController::class, 'store']);
 Route::patch('categories/{category}', [CategoryController::class, 'update']);
@@ -39,12 +39,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['middleware' => 'auth:sanctum'],
+Route::group(
+    ['middleware' => 'auth:sanctum'],
     function () {
         // Route::apiResource('categories', CategoryController::class);
+        Route::get('cart',[CartController::class, 'index']);
+        Route::put('cart', [CartController::class, 'update']);
+        Route::delete('cart', [CartController::class, 'destroy']);
         Route::put('products/{product}', [ProductController::class, 'update']);
-        
-        Route::apiResource('cart', CartController::class);
+
 
         Route::apiResource('categoryproducts', CategoryProductController::class);
 
