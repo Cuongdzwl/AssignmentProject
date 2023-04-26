@@ -3,7 +3,7 @@ $(document).ready(function () {
     var timeout = 600;
     clearTimeout(timeout);
 
-    $(".quantity").change(function (e) {
+    $(".item-quantity").change(function (e) {
         e.preventDefault();
 
         let id = $(this).data("id");

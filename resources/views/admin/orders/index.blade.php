@@ -1,9 +1,4 @@
  <x-app-layout>
-     <x-slot name="header">
-         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-             {{ __('Order Management') }}
-         </h2>
-     </x-slot>
      <div class="mx-auto max-w-7xl rounded-lg bg-white p-5 m-3 shadow-md space-y-4">
          <a class="rounded-md border border-transparent bg-gray-700 px-4 py-2 text-s font-semibold text-white hover:bg-gray-800"
              href="{{ route('admin') }}">Back</a>

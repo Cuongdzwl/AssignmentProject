@@ -2,8 +2,8 @@
 <x-app-layout>
   <section class="order">
     <div class="container">
-      <h2>My Orders</h2>
       <div class="row">
+        <h1 class="text-center text-3xl my-8 font-semibold">My Orders</h1>
         <div class="col-md-12">
           <div class="card">
             <div class="card-body">
