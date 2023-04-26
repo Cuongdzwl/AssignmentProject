@@ -71,7 +71,7 @@
     <form action="{{route('cart.view')}}" method="post">
         @csrf
         <input type="hidden" name="total" value = "{{$total + $tax}}">
-        <button type="submit" class="checkout btn">Checkout</button>
+        <button type="submit" class="checkout btn bg-dark w-full p-2 text-white transition-opacity hover:opacity-70">Checkout</button>
         {{-- all cart to all --}}
 
         </form>
