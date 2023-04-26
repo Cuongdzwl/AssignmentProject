@@ -8,6 +8,7 @@
               <a href="{{ route('admin.product.create') }}"
                   class="rounded-md border border-transparent bg-green-400 px-4 py-2 text-s font-semibold text-white hover:bg-green-300">Create
                   New</a>
+                  <div id="alert"></div>
               <div class="overflow-x-auto">
                   <table class="w-full table-auto rounded-xl border border-gray-300 bg-white text-left shadow-sm divide-y">
                       <thead class="bg-gray-500/5">
@@ -26,7 +27,7 @@
                               <tr id="item-{{ $product->id }}">
                                   <td class="px-2"><b>{{ $product->id }}</b></td>
                                   <td><a href="">{{ $product->name }}</a></td>
-                                  <td><img src="{{ $product->image }}" alt="Image Product"></td>
+                                  <td><img src="{{asset('image'/.$product->image)}}" alt="Image Product"></td>
                                   <td>{{ $product->created_at }}</td>
                                   <td>{{ $product->updated_at }}</td>
                                   <td>$ {{ $product->price }}</td>

@@ -5,11 +5,12 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
-use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\Session\Session as SessionSession;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -29,9 +30,11 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
+
+        // Generate a session token
         $user = Auth::user();
         $token = $user->createToken('access_token',)->plainTextToken;
-        session(['token' => $token]);
+        Session::put('access_token', $token);
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }
@@ -41,9 +44,10 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
+        //Delete the session token
         Auth::user()->tokens()->delete();
-        
-        session()->forget('token');
+
+        Session::forget('access_token');
 
         Auth::guard('web')->logout();
 

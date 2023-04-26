@@ -5,7 +5,8 @@ $(document).ready(function () {
         $.ajaxSetup({
             headers: {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-                // 'Authorization':
+                "Authorization": "Bearer " + $('meta[name="token"]').attr("content"), // Include access token
+                
             },
         });
         // create a new FormData object
@@ -45,7 +46,8 @@ $(document).ready(function () {
         $.ajaxSetup({
             headers: {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-                // 'Authorization':
+                "Authorization":"Bearer " + $('meta[name="token"]').attr("content"), // Include access token
+                
             },
         });
         // create a new FormData object
@@ -68,7 +70,7 @@ $(document).ready(function () {
                     $("#alert").html(html);
                     setTimeout(function () {
                         $("#alert").html("");
-                    }, 3000);
+                    }, 5000);
                     // $("#update_product")[0].reset();
                 } else {
                     html =
@@ -99,7 +101,8 @@ function deleteItem(id) {
     $.ajaxSetup({
         headers: {
             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-            // 'Authorization':
+            "Authorization":"Bearer " + $('meta[name="token"]').attr("content"), // Include access token
+
         },
     });
     $.ajax({

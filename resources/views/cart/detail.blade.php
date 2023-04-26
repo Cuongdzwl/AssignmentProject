@@ -31,6 +31,7 @@
                     <td>{{ $item->name }}</td>
                     <td>{{ $item->price }}</td>
                     <td>
+
                         {{ $item->quantity }}
                         {{-- <input type="number" value="{{ $item->quantity }}" min="1" class="form-control"> --}}
                     </td>
@@ -51,15 +52,12 @@
         <div class="totals-item">
           <label>Items:</label>
           <div class="totals-value" id="cart-subtotal"> {{$items}}</div>
+
         </div>
-        <div class="totals-item">
+        <div class="totals-item flex justify-between pb-3">
           <label>Tax (5%):</label>
           <div class="totals-value" id="cart-tax"> {{$tax = $total / 100 * 5}}</div>
         </div>
-        {{-- <div class="totals-item">
-          <label>Shipping:</label>
-          <div class="totals-value" id="cart-shipping">0</div>
-        </div> --}}
         <div class="totals-item totals-item-total">
           <label>Total:</label>
         <div class="totals-value" id="cart-total">{{$total + $tax}}</div>
