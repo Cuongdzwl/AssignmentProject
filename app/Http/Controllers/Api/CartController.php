@@ -138,7 +138,7 @@ class CartController extends Controller
         // check if the product already exists
         if ($cart->count() != 0) {
             unset($cart_new['_method']);
-            
+
             if(isset($cart_new['add_to_cart'])) {
                 if($cart_new['add_to_cart'] == true){
                     $cart->increment('quantity',$cart_new['quantity']);
@@ -166,19 +166,19 @@ class CartController extends Controller
     {
         $user = auth()->user();
         $user_id = $user->id;
-        // $user_id = Auth::user()->id;
-        $cart = Cart::where('user_id', '=', $user_id)->get();
+
+        $cart = Cart::where('user_id', '=', $user_id)->first();
+        // $cart = CartProduct::where('product_id', '=', $product_id)->where('cart_ID', '=', $cart->id)->get();
         if ($cart) {
             $cart->delete();
             return response()->json([
                 'success' => true,
-                'message' => 'Cart has been deleted'
+                'message' => 'Product has been deleted'
             ]);
         }
-
         return response()->json([
             'success' => false,
-            'message' => 'Cart has not been deleted'
+            'message' => 'Product has not been deleted'
         ]);
     }
 

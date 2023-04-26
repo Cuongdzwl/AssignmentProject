@@ -18,11 +18,11 @@
                   </tr>
                 </thead>
                 <tbody id="cart_all">
-                    @php
-                        $items = 0;
-                        $total = 0;
-                        $tax= 0;
-                    @endphp
+                  @php
+                    $items = 0;
+                    $total = 0;
+                    $tax = 0;
+                  @endphp
                   @foreach ($cart as $item)
                     @if ($item->product_id == null)
                     @break
@@ -31,34 +31,35 @@
                     <td>{{ $item->name }}</td>
                     <td>{{ $item->price }}</td>
                     <td>
-
-                        {{ $item->quantity }}
-                        {{-- <input type="number" value="{{ $item->quantity }}" min="1" class="form-control"> --}}
+                      {{ $item->quantity }}
+                      {{-- <input type="number" value="{{ $item->quantity }}" min="1" class="form-control"> --}}
                     </td>
                     <td id="subtotal">{{ $item->price * $item->quantity }}</td>
-                    {{$total += $item->price  * $item->quantity}}
-                    {{$items += $item->quantity }}
+                    {{ $total += $item->price * $item->quantity }}
+                    {{ $items += $item->quantity }}
                     <td>
-                      <a href="#" class="btn btn-danger">Delete</a>
                     </td>
                   </tr>
+                  <button class="delete btn btn-danger" data-id="{{ $item->product_id }}">Clear all</button>
                 @endforeach
+                @vite('/resources/js/data/loadCart.js')
               </tbody>
             </table>
           </div>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="totals-item">
+      <div class="col-sm-4">
+        <div class="totals-item flex justify-between pb-3">
           <label>Items:</label>
-          <div class="totals-value" id="cart-subtotal"> {{$items}}</div>
+          <div class="totals-value" id="cart-subtotal"> {{ $items }}</div>
 
         </div>
         <div class="totals-item flex justify-between pb-3">
           <label>Tax (5%):</label>
-          <div class="totals-value" id="cart-tax"> {{$tax = $total / 100 * 5}}</div>
+          <div class="totals-value" id="cart-tax"> {{ $tax = ($total / 100) * 5 }}</div>
         </div>
-        <div class="totals-item totals-item-total">
+        <hr>
+        <div class="totals-item totals-item-total flex justify-between py-3 font-bold text-red-500">
           <label>Total:</label>
         <div class="totals-value" id="cart-total">{{$total + $tax}}</div>
     </div>
@@ -68,7 +69,7 @@
         <button type="submit" class="checkout btn">Checkout</button>
         {{-- all cart to all --}}
 
-    </form>
+        </form>
       </div>
 
     </div>

@@ -27,7 +27,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/categories/{id}', [CategoryProductController::class, 'index']);
 Route::get('/categoriess', [CategoryController::class, 'index']);
 Route::get('/search/{keyword}', [ProductController::class, 'search']);
-
+Route::get('/products', [ProductController::class, 'index']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -40,7 +40,7 @@ Route::group(
         // Route::apiResource('categories', CategoryController::class);
         Route::get('cart',[CartController::class, 'index']);
         Route::put('cart', [CartController::class, 'update']);
-        Route::delete('cart', [CartController::class, 'destroy']);
+        Route::delete('cart',[CartController::class,'destroy']);
         
         Route::apiResource('products', ProductController::class);
         Route::patch('products/{product}', [ProductController::class, 'update']);
