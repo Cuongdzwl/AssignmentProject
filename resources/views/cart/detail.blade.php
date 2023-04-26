@@ -1,6 +1,7 @@
 @section('title', 'Cart Details')
 <x-app-layout>
   <section class="cart">
+
     <div class="container">
       <div class="row">
         <div class="col-md-8">
@@ -17,6 +18,11 @@
                   </tr>
                 </thead>
                 <tbody id="cart_all">
+                    @php
+                        $items = 0;
+                        $total = 0;
+                        $tax= 0;
+                    @endphp
                   @foreach ($cart as $item)
                     @if ($item->product_id == null)
                     @break
@@ -25,9 +31,12 @@
                     <td>{{ $item->name }}</td>
                     <td>{{ $item->price }}</td>
                     <td>
-                      <input type="number" value="{{ $item->quantity }}" min="1" class="form-control">
+                        {{ $item->quantity }}
+                        {{-- <input type="number" value="{{ $item->quantity }}" min="1" class="form-control"> --}}
                     </td>
                     <td id="subtotal">{{ $item->price * $item->quantity }}</td>
+                    {{$total += $item->price  * $item->quantity}}
+                    {{$items += $item->quantity }}
                     <td>
                       <a href="#" class="btn btn-danger">Delete</a>
                     </td>
@@ -41,24 +50,31 @@
       <div class="col-md-4">
         <div class="totals-item">
           <label>Items:</label>
-          <div class="totals-value" id="cart-subtotal">0</div>
+          <div class="totals-value" id="cart-subtotal"> {{$items}}</div>
         </div>
         <div class="totals-item">
           <label>Tax (5%):</label>
-          <div class="totals-value" id="cart-tax">0</div>
+          <div class="totals-value" id="cart-tax"> {{$tax = $total / 100 * 5}}</div>
         </div>
-        <div class="totals-item">
+        {{-- <div class="totals-item">
           <label>Shipping:</label>
           <div class="totals-value" id="cart-shipping">0</div>
-        </div>
+        </div> --}}
         <div class="totals-item totals-item-total">
           <label>Total:</label>
-          <div class="totals-value" id="cart-total">0</div>
-        </div>
-        <button class="checkout">Checkout</button>
+        <div class="totals-value" id="cart-total">{{$total + $tax}}</div>
+    </div>
+    <form method="post">
+        @csrf
+        <input type="hidden" name="total" value = "{{$total + $tax}}">
+        <button type="submit" class="checkout">Checkout</button>
+        {{-- all cart to all --}}
+
+    </form>
       </div>
 
     </div>
+
 </section>
 
 </x-app-layout>
