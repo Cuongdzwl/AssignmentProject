@@ -41,14 +41,14 @@ class CartController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Something went wrong'
-            ]);
+            ],400);
         }
         $cart = CartController::getCart($user_id);
         // Building the cart
         return response()->json([
             'success' => true,
             'data' => $cart
-        ]);
+        ],200);
     }
     public function indexAutoLoadCart(){
         $user_id = Auth::user()->id;
@@ -80,7 +80,7 @@ class CartController extends Controller
         return response()->json([
             'success' => false,
             'message' => 'Method unavailable'
-        ]);
+        ],400);
     }
 
     /**
@@ -94,7 +94,7 @@ class CartController extends Controller
         return response()->json([
             'success' => false,
             'message' => 'Method unavailable'
-        ]);
+        ],400);
     }
 
     /**
@@ -127,7 +127,7 @@ class CartController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Somthing went wrong'
-            ]);
+            ],400);
         }
         // Check the quantity 
         if (!isset($cart_new['quantity'])) {
@@ -153,7 +153,7 @@ class CartController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Cart updated successfully'
-        ]);
+        ],200);
     }
 
     /**
@@ -174,12 +174,12 @@ class CartController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Product has been deleted'
-            ]);
+            ],200);
         }
         return response()->json([
             'success' => false,
             'message' => 'Product has not been deleted'
-        ]);
+        ],400);
     }
 
     protected static function getCart($user_id)

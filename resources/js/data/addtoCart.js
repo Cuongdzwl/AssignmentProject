@@ -21,7 +21,13 @@ $(document).ready(function () {
             },
             success: function (response) {
                 // Handle success response
-                console.log(response);
+                var html ='<div class ="mb-4 rounded-lg bg-green-100 px-6 py-5 text-base text-green-700" role = "alert" >' +
+                        response.message +
+                        "</div>";
+                $("#add-to-cart-message").html(html);
+                setTimeout(function(){
+                    $("#add-to-cart-message").html("");
+                },3000)
             },
             error: function (xhr) {
                 // Handle error response
