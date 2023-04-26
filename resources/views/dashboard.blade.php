@@ -139,7 +139,7 @@
     </div>
   </section>
 
-  @vite('/resources/js/data/loadProducts.js')
+  {{-- @vite('/resources/js/data/loadProducts.js') --}}
   <script type="text/javascript">
     $(document).ready(function() {
       $("#image-slider").slick({
