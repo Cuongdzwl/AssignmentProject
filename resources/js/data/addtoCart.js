@@ -1,6 +1,6 @@
 $(document).ready(function () {
     // Add click event listener to add to cart button
-    $("#add-to-cart").click(function (e) {
+    $(".add-to-cart").click(function (e) {
         e.preventDefault(); // Prevent default form submit action
 
         var id = $(this).data("id"); // Get the ID of the product from the data-id attribute
