@@ -59,8 +59,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/orders', [OrderController::class, 'indexAutoLoad'])->name('order');
-    // User 
+    // User
     Route::get('/cart', [CartController::class, 'indexAutoLoadCart'])->name('cart.view');
+    Route::post('/cart', [OrderController::class, 'checkout'])->name('checkOutCart');
     // Admin Settings
     Route::get('/admin', [HomeController::class, 'admin'])->name('admin');
     Route::get('/admin/orders', [OrderController::class, 'indexAutoLoadOrders'])->name('admin.order');

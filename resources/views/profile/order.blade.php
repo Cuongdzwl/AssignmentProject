@@ -21,12 +21,13 @@
                 <tbody>
                   @foreach ($orders as $item)
                     <tr>
-                      <td>{{ $item->id }}</td>
-                      <td>{{ $item->product->name }}</td>
+                      <td>{{ $item->order_ID }}</td>
+                      <td>{{ $item->name }}</td>
                       <td>{{ $item->price }}</td>
                       <td>{{ $item->quantity }}</td>
-                      <td>{{ $item->price * $item->quantity }}</td>
-                      <td>
+                      <td>{{ $item->total }}</td>
+                      <td>{{$item->status}}</td>
+                      {{-- <td>
                         @if ($item->status == 0)
                           <span class="badge badge-warning">Pending</span>
                         @elseif($item->status == 1)
@@ -38,7 +39,7 @@
                         @else
                           <span class="badge badge-danger">Cancelled</span>
                         @endif
-                      </td>
+                      </td> --}}
                     </tr>
                   @endforeach
                 </tbody>

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api\Management;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\Cart;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -30,10 +32,34 @@ class OrderController extends Controller
     }
     public function indexAutoLoad(){
 
-        $orders = Order::where('user_ID','=',Auth::user()->id);
+        // $orders = Order::where('user_ID','=',Auth::user()->id);
+
+        //check orders and create getOrder to collect data
+
+        $orders = OrderController::getOrder(Auth::user()->id);
         return view('profile.order',compact('orders'));
     }
-    
+
+    public function checkout(Request $request)
+    {
+    $user_id = Auth::user()->id;
+    $order['user_ID'] = $user_id;
+    $order['total'] = $request['total'];
+    $order['status'] = 'complete';
+    // save order
+    $order = Order::create($order);
+    $carts = Cart::where('user_id', '=', $user_id)->get();
+    foreach($carts as $cart){
+        $cart->delete();
+    }
+
+    // return detail
+    return response()->json([
+        'success' => true,
+        'data' => $order,
+    ], 201);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -94,4 +120,14 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
     }
+
+    protected static function getOrder($user_id)
+    {
+        return DB::table('orders')->where('user_id', '=', $user_id)
+            ->leftJoin('order_product', 'order_product.order_id', '=', 'orders.id')
+            ->leftJoin('products', 'order_product.product_id', '=', 'products.id')
+            ->select('order_product.product_id', 'order_product.quantity', 'order_product.order_ID', 'products.name', 'products.price','orders.total','orders.status')
+            ->get();
+    }
+
 }
