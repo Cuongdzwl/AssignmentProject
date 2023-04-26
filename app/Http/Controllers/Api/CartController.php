@@ -9,10 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Cart;
 use App\Models\CartProduct;
-use App\Models\Product;
-use GrahamCampbell\ResultType\Success;
 use Illuminate\Support\Facades\Validator;
-use Laravel\Sanctum\PersonalAccessToken;
 
 class CartController extends Controller
 {
@@ -25,8 +22,10 @@ class CartController extends Controller
     public function index(Request $request)
     {
         // Authenticate
-        $token = PersonalAccessToken::findToken($request->session()->get('token'));
-        $user_id = $token->tokenable_id;
+        $user = auth()->user();
+        $user_id= $user->id;
+
+        // return response()->json(["data" => $request->header('Authorization'),"id"=>$user]);
         // Building the query
         $cart_check = Cart::where('user_id', '=', $user_id);
 
@@ -108,7 +107,8 @@ class CartController extends Controller
     public function update(Request $request)
     {
         // Authenticate
-         $user_id = Auth::user()->id;
+        $user = auth()->user();
+        $user_id = $user->id;
         // $user_id = 1;
 
         // Get the user cart id
@@ -138,6 +138,7 @@ class CartController extends Controller
         // check if the product already exists
         if ($cart->count() != 0) {
             unset($cart_new['_method']);
+            
             if(isset($cart_new['add_to_cart'])) {
                 if($cart_new['add_to_cart'] == true){
                     $cart->increment('quantity',$cart_new['quantity']);
@@ -151,7 +152,7 @@ class CartController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Added to cart successfully'
+            'message' => 'Cart updated successfully'
         ]);
     }
 
@@ -163,8 +164,9 @@ class CartController extends Controller
      */
     public function destroy(Request $request)
     {
-
-        $user_id = Auth::user()->id;
+        $user = auth()->user();
+        $user_id = $user->id;
+        // $user_id = Auth::user()->id;
         $cart = Cart::where('user_id', '=', $user_id)->get();
         if ($cart) {
             $cart->delete();

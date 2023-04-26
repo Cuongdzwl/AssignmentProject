@@ -5,8 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="token" content="">
-
+    <meta name="token" content="{{Session::get('access_token')}}">
     <title>@yield('title')</title>
 
     <!-- Fonts -->
@@ -19,9 +18,9 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['/resources/js/data/addtoCart.js'])
     <script src="https://kit.fontawesome.com/e39677c136.js" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
 
 </head>
@@ -38,21 +37,6 @@
 
     @include('layouts.components.footer')
   </div>
-  <script>
-    $(document).ready(function() {
-    // show search results on click of search input
-    $('#search').on('click', function() {
-      $('#results').show();
-    });
-
-    // hide search results when clicked outside of search input or results div
-    $(document).on('click', function(e) {
-      if (!$(e.target).closest('#search, #results').length) {
-        $('#results').hide();
-      }
-    });
-  });
-  </script>
 </body>
 
 </html>

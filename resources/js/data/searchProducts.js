@@ -2,8 +2,8 @@ var timeout = 0;
 
 $("#search").on("keyup", function (e) {
     var keyword = $("#search").val();
-    console.log(keyword);
     clearTimeout(timeout);
+
     timeout = setTimeout(function () {
         $.ajax({
             type: "GET",
@@ -18,7 +18,6 @@ $("#search").on("keyup", function (e) {
                     html += "<div>" + item.name + "</div>";
                 });
                 $("#results").empty().append(html);
-                console.log(data);
             },
             error: function (xhr, status, error) {
                 console.log(xhr.responseText);

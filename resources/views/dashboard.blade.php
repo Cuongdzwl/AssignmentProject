@@ -132,14 +132,6 @@
         <select id="category_filter" name="category">
           <option value="0">All</option>
         </select>
-
-        <label for="price-filter">Price:</label>
-        <select id="price-filter" name="price">
-          <option value="">All</option>
-          <option value="under-50">Under $50</option>
-          <option value="50-100">$50-$100</option>
-          <option value="over-100">Over $100</option>
-        </select>
       </form>
 
       <div class="row" id="product_all">

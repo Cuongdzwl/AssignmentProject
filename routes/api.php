@@ -24,29 +24,31 @@ use Illuminate\Support\Facades\Route;
 */
 
 //
-Route::get('/categories/{id}', [CategoryProductController::class,'index']);
-Route::get('/categoriess', [CategoryController::class,'index']);
+Route::get('/categories/{id}', [CategoryProductController::class, 'index']);
+Route::get('/categoriess', [CategoryController::class, 'index']);
 Route::get('/search/{keyword}', [ProductController::class, 'search']);
 
-Route::apiResource('products', ProductController::class);
-Route::patch('/products/{product}', [ProductController::class,'update']);
-
-Route::post('categories', [CategoryController::class, 'store']);
-Route::patch('categories/{category}', [CategoryController::class, 'update']);
-Route::delete('categories/{category}', [CategoryController::class, 'destroy']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::apiResource('categoryproducts', CategoryProductController::class);
 
-Route::group(['middleware' => 'auth:sanctum'],
+Route::group(
+    ['middleware' => 'auth:sanctum'],
     function () {
         // Route::apiResource('categories', CategoryController::class);
-        Route::put('products/{product}', [ProductController::class, 'update']);
+        Route::get('cart',[CartController::class, 'index']);
+        Route::put('cart', [CartController::class, 'update']);
+        Route::delete('cart', [CartController::class, 'destroy']);
         
-        Route::apiResource('cart', CartController::class);
-
-        Route::apiResource('categoryproducts', CategoryProductController::class);
+        Route::apiResource('products', ProductController::class);
+        Route::patch('products/{product}', [ProductController::class, 'update']);
+        
+        Route::post('categories', [CategoryController::class, 'store']);
+        Route::patch('categories/{category}', [CategoryController::class, 'update']);
+        Route::delete('categories/{category}', [CategoryController::class, 'destroy']);
+        
 
         Route::apiResource('users', UserController::class);
 
