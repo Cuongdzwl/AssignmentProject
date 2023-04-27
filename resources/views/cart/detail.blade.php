@@ -28,7 +28,7 @@
                     @if ($item->product_id == null)
                     @break
                   @endif
-                  <tr>
+                  <tr class="item" id="item-{{$product->id}}">
                     <td>{{ $item->name }}</td>
                     <td>$ {{ $item->price }}</td>
                     <td>
@@ -42,14 +42,17 @@
                     $items += $item->quantity ;
                     @endphp
                     <td>
-                      <i class="fa fa-trash-o" aria-hidden="true"></i>
+                      <button class="delete" data-id="{{$product->id}}"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                     </td>
                   </tr>
                   @endforeach
-                  <button class="delete-all btn btn-danger" data-id="{{ $item->product_id }}">Clear all</button>
+                  <button class="delete-all btn btn-danger">Clear all</button>
                 @vite('/resources/js/data/loadCart.js')
               </tbody>
             </table>
+            <script>
+              
+            </script>
           </div>
         </div>
       </div>

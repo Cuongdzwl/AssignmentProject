@@ -1,5 +1,8 @@
 $(document).ready(function () {
     showLatestProducts();
+
+    showFeaturedProduct();
+    
     loadCategoriesIndex();
 
     $("#category_filter").change(function () {
@@ -31,7 +34,7 @@ function showFilteredProducts(id) {
                     ">" +
                     '<img class="latest-image" src="' +
                     item.image +
-                    '"alt="Product Image" width="200px">' +
+                    '"alt="Product Image" width="200px" height="auto">' +
                     '<h6 class="product-title line-clamp-2 text-ellipsis px-2 text-sm">' +
                     item.name +
                     "</h6>" +
@@ -89,7 +92,36 @@ function showLatestProducts() {
         },
     });
 }
-
+function showFeaturedProduct() {
+    $.ajax({
+        method: "GET",
+        url: "http://127.0.0.1:8000/api/categories/1",
+        dataType: "json",
+        success: function (data) {
+            var html = "";
+            $.each(data.data, function (index, item) {
+                if (index == 8) return false;
+                var ele =
+                    '<div class="image-item">' +
+                    '<div class="image">' +
+                    '<a href="/products/' +
+                    item.id +
+                    '">' +
+                    '<img src="' +
+                    item.image +
+                    '" alt="Product image" />' +
+                    "</a>" +
+                    "</div>" +
+                    "</div>";
+                html += ele;
+            });
+            $("#image-slider").html(html);
+        },
+        error: function (xhr, status, error) {
+            console.log(xhr.responseText);
+        },
+    });
+}
 function generateElements(data) {
     var html = "";
     $.each(data.data, function (index, item) {
@@ -102,11 +134,12 @@ function generateElements(data) {
             '<div class="card border-none transition-shadow hover:shadow-2xl" id=' +
             item.id +
             ">" +
-            '<img class="image" src="'+item.image+ 
-            '"alt="Product Image" width="200px">'  +
+            '<img class="image" src="' +
+            item.image +
+            '"alt="Product Image" width="200px" height="200px>' +
             '<h6 class="product-title line-clamp-2 text-ellipsis px-2 text-sm">' +
-            item.name +
-            "</h6>" +
+                item.name +
+                "</h6>" +
             '<p class="product-price pt-2 px-2 font-bold">$' +
             item.price +
             "</p>" +
