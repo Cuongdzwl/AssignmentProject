@@ -14,7 +14,7 @@
                     <th>Product</th>
                     <th>Price</th>
                     <th>Quantity</th>
-                    <th>Sub Total</th>
+                    <th>Total</th>
                     <th>Status</th>
                   </tr>
                 </thead>
@@ -26,20 +26,17 @@
                       <td>{{ $item->price }}</td>
                       <td>{{ $item->quantity }}</td>
                       <td>{{ $item->total }}</td>
-                      <td>{{$item->status}}</td>
-                      {{-- <td>
+                      <td>
                         @if ($item->status == 0)
-                          <span class="badge badge-warning">Pending</span>
+                            Progress
                         @elseif($item->status == 1)
-                          <span class="badge badge-info">Payment Accepted</span>
+                            Payment Accepted
                         @elseif($item->status == 2)
-                          <span class="badge badge-primary">Progress</span>
+                            Delivered
                         @elseif($item->status == 3)
-                          <span class="badge badge-success">Delivered</span>
-                        @else
-                          <span class="badge badge-danger">Cancelled</span>
+                            Cancelled
                         @endif
-                      </td> --}}
+                      </td>
                     </tr>
                   @endforeach
                 </tbody>

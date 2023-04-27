@@ -28,47 +28,51 @@ class OrderController extends Controller
         ], 200);
     }
 
-    public function indexAutoLoadOrders(){
-        $orders = Order::latest()->paginate(16);
-        return view('admin.orders.index',compact('orders'));
+    public function indexAutoLoadOrders()
+    {
+        // $orders = Order::latest();
+
+        $orders = OrderController::getUser()->paginate(16);
+
+
+        return view('admin.orders.index', compact('orders'));
     }
-    public function indexAutoLoad(){
+    public function indexAutoLoad()
+    {
 
         // $orders = Order::where('user_ID','=',Auth::user()->id);
 
         //check orders and create getOrder to collect data
 
         $orders = OrderController::getOrder(Auth::user()->id);
-        return view('profile.order',compact('orders'));
+        return view('profile.order', compact('orders'));
     }
 
     public function checkout(Request $request)
     {
-    $user_id = Auth::user()->id;
-    $order['user_ID'] = $user_id;
-    $order['total'] = $request['total'];
-    $order['status'] = 'complete';
-    $cart = Cart::where('user_id', '=', $user_id)->get();
-    if($order['total']!=0){
-        // save order
-    $order = Order::create($order);
-    $cartProducts = CartProduct::where('cart_ID', '=', $cart[0]->id )->get();
-    foreach($cartProducts as $cartProduct){
-        $orderProduct['order_ID'] = $order['id'];
-        $orderProduct['product_ID'] =$cartProduct['product_ID'];
-        $orderProduct['quantity'] =$cartProduct['quantity'];
-        OrderProduct::create($orderProduct);
-        $cartProduct->delete();
-    }
-    }
-    return view('cart.detail',compact('cart'));
+        $user_id = Auth::user()->id;
 
+        $order['user_ID'] = $user_id;
+        $order['total'] = $request['total'];
+        $order['status'] = 0;
 
+        $cart = Cart::where('user_id', '=', $user_id)->get();
+        if ($order['total'] != 0) {
+            // save order
+            $order = Order::create($order);
+            $cartProducts = CartProduct::where('cart_ID', '=', $cart[0]->id)->get();
+            foreach ($cartProducts as $cartProduct) {
+                $orderProduct['order_ID'] = $order['id'];
+                $orderProduct['product_ID'] = $cartProduct['product_ID'];
+                $orderProduct['quantity'] = $cartProduct['quantity'];
 
+                OrderProduct::create($orderProduct);
 
-    // return detail
+                $cartProduct->delete();
+            }
+        }
 
-
+        return view('cart.detail', compact('cart'));
     }
 
     /**
@@ -82,7 +86,7 @@ class OrderController extends Controller
         $validator = Validator::make($request->all(), [
             'user_ID' => 'required|exists:users,id',
             'total' => 'required|decimal:0,5',
-            'status' => 'required|string|max:255'
+            'status' => 'required|decimal:0,5'
         ]);
         if ($validator->fails()) {
             return response()->json([
@@ -118,8 +122,15 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Order $order)
+    public function update(Request $request)
     {
+        $order = Order::find($request->id);
+        $order['status'] = $request->status;
+        $order->save();
+        return response()->json([
+            'data' => $order
+        ]);
+        // return view('admin.orders.index',compact('order'));
     }
 
     /**
@@ -137,8 +148,13 @@ class OrderController extends Controller
         return DB::table('orders')->where('user_id', '=', $user_id)
             ->leftJoin('order_product', 'order_product.order_id', '=', 'orders.id')
             ->leftJoin('products', 'order_product.product_id', '=', 'products.id')
-            ->select('order_product.product_id', 'order_product.quantity', 'order_product.order_ID', 'products.name', 'products.price','orders.total','orders.status')
+            ->select('order_product.product_id', 'order_product.quantity', 'order_product.order_ID', 'products.name', 'products.price', 'orders.total', 'orders.status')
             ->get();
     }
-
+    protected static function getUser()
+    {
+        return DB::table('orders')
+            ->leftJoin('users', 'orders.user_id', '=', 'users.id')
+            ->select('orders.id', 'orders.user_ID', 'orders.total', 'orders.status', 'users.address', 'users.phone');
+    }
 }

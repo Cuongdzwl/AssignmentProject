@@ -7,31 +7,66 @@
                  <thead class="bg-gray-500/5">
                      <tr>
                          <th class="px-2">ID</th>
-                         <th>Name</th>
-                         <th>Description</th>
-                         <th>Created At</th>
-                         <th>Updated At</th>
+                         <th>User_ID</th>
+                         <th>Address</th>
+                         <th>Phone</th>
+                         <th>Status</th>
+                         {{-- <th>Created At</th>
+                         <th>Updated At</th> --}}
                          <th class="py-2">Action</th>
                      </tr>
                  </thead>
                  <tbody whitespace-nowrap divide-y>
-                     @foreach ($categories as $category)
+                     @foreach ($orders as $order)
                          <tr>
-                             <td class="px-2"><b>{{ $category->id }}</b></td>
-                             <td><a href="">{{ $category->name }}</a></td>
-                             <td>{{ $category->created_at }}</td>
-                             <td>{{ $category->updated_at }}</td>
-                             <td class="py-2">
-                                 <a class="rounded-md border border-transparent bg-indigo-400 px-4 py-2 text-xs font-semibold text-white hover:bg-indigo-300"
-                                     href=""><button>Edit</button></a>
-                                 <a class="rounded-md border border-transparent bg-red-500 px-4 py-2 text-xs font-semibold text-white hover:bg-red-400"
-                                     href=""><button>Delete</button></a>
+                             <td class="px-2"><b>{{ $order->id }}</b></td>
+                             <td>{{ $order->user_ID }}</td>
+                             <td>{{ $order->address }}</td>
+                             <td>{{ $order->phone }}</td>
+                             <td>
+                                 @if ($order->status == 0)
+                                     Progress
+                                 @elseif($order->status == 1)
+                                     Payment Accepted
+                                 @elseif($order->status == 2)
+                                     Delivered
+                                 @elseif($order->status == 3)
+                                     Cancelled
+                                 @endif
+
                              </td>
+                             {{-- <td>{{ $order->created_at }}</td>
+                             <td>{{ $order->updated_at }}</td> --}}
+                             @if ($order->status == 0)
+                                 <td class="py-2">
+                                     <form action="/admin/orders/{{$order->id}}" method="post">
+                                        @csrf
+                                        @method('put')
+                                        <input type="hidden" name="status" id="status" value="1">
+                                        <input type="hidden" name="id" id="id" value="{{$order->id}}">
+                                         <button type="submit">Confirm Payment</button>
+                                     </form>
+                                 </td>
+                             @endif
+                             @if ($order->status == 1)
+                                 <td class="py-2">
+                                     <form action="/admin/orders/{{$order->id}}" method="post">
+                                        @csrf
+                                        @method('put')
+                                        <input type="hidden" name="status" id="status" value="2">
+                                         <button type="submit">Confirm Delivered</button>
+                                     </form>
+                                 </td>
+                             @endif
                          </tr>
                      @endforeach
                  </tbody>
              </table>
-             {{ $categories->links() }}
+             @if ($orders->links())
+                 <div class="mt-4">
+                     {{ $orders->links() }}
+                 </div>
+             @endif
          </div>
      </div>
  </x-app-layout>
