@@ -28,7 +28,7 @@
                     @if ($item->product_id == null)
                     @break
                   @endif
-                  <tr class="item" id="item-{{$product->id}}">
+                  <tr class="item" id="item-{{$item->product_id}}">
                     <td>{{ $item->name }}</td>
                     <td>$ {{ $item->price }}</td>
                     <td>
@@ -42,7 +42,7 @@
                     $items += $item->quantity ;
                     @endphp
                     <td>
-                      <button class="delete" data-id="{{$product->id}}"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                      <button class="delete" data-id="{{$item->product_id}}"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                     </td>
                   </tr>
                   @endforeach

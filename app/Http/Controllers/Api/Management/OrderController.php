@@ -127,10 +127,10 @@ class OrderController extends Controller
         $order = Order::find($request->id);
         $order['status'] = $request->status;
         $order->save();
-        return response()->json([
-            'data' => $order
-        ]);
-        // return view('admin.orders.index',compact('order'));
+        return redirect('/admin/orders');
+        // return response()->json([
+        //     'data' => $order
+        // ]);
     }
 
     /**

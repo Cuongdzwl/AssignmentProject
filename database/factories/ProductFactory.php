@@ -18,9 +18,10 @@ class ProductFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'description' => $this->faker->text(),
-            'price' => $this->faker->randomFloat(2,10,100000),
-            'image' => $this->faker->randomElement(['http://127.0.0.1:8000/images/food/baked-pancakes.jpg', 'images/food/blueberry-toast-bread.jpg', 'images/food/pesto-pasta.jpg']),
+            'description' => $this->faker->text(350),
+            'price' => $this->faker->randomFloat(2,10,1000),
+            'image' => $this->faker->randomElement(['/images/food/baked-pancakes.jpg', 'images/food/blueberry-toast-bread.jpg', '/images/food/sandwich-with-boiled-egg.jpg
+            ','/images/food/strawberry-yogurt.jpg','/images/accessory/black-tote-bag.jpg','/images/accessory/brown-framed-eyeglasses.jpg','/images/accessory/brown-leather-handbag.jpg']),
             'quantity' => $this->faker->randomNumber(3),
         ];
     }
