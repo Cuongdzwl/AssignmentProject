@@ -54,6 +54,7 @@
                                         @csrf
                                         @method('put')
                                         <input type="hidden" name="status" id="status" value="2">
+                                        <input type="hidden" name="id" id="id" value="{{$order->id}}">
                                          <button type="submit">Confirm Delivered</button>
                                      </form>
                                  </td>

@@ -28,7 +28,7 @@
                     @if ($item->product_id == null)
                     @break
                   @endif
-                  <tr class="item" id="item-{{$product->id}}">
+                  <tr class="item" id="item-{{$item->id}}">
                     <td>{{ $item->name }}</td>
                     <td>$ {{ $item->price }}</td>
                     <td>
@@ -36,13 +36,13 @@
                     </td>
                     <td id="subtotal">$ {{ $item->price * $item->quantity }}</td>
 
-                    @php 
+                    @php
                     // Caculate total
                     $total += $item->price * $item->quantity;
                     $items += $item->quantity ;
                     @endphp
                     <td>
-                      <button class="delete" data-id="{{$product->id}}"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                      <button class="delete" data-id="{{$item->id}}"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                     </td>
                   </tr>
                   @endforeach
@@ -51,7 +51,7 @@
               </tbody>
             </table>
             <script>
-              
+
             </script>
           </div>
         </div>

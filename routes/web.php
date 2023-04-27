@@ -65,7 +65,7 @@ Route::middleware('auth')->group(function () {
     // Admin Settings
     Route::get('/admin', [HomeController::class, 'admin'])->name('admin');
     Route::get('/admin/orders', [OrderController::class, 'indexAutoLoadOrders'])->name('admin.order');
-    Route::put('/admin/orders/{id}', [OrderController::class, 'update'])->name('admin.order');
+    Route::put('/admin/orders/{id}', [OrderController::class, 'update'])->name('admin.order.update');
 
     Route::get('/admin/products', [ProductController::class, 'indexAutoLoadProducts'])->name('admin.product');
     Route::get('/admin/products/create', function(){ return view('admin.products.create');})->name('admin.product.create');
@@ -74,6 +74,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/categories', [CategoryController::class, 'indexAutoLoadCategories'])->name('admin.category');
     Route::get('/admin/categories/create',function(){ return view('admin.categories.create');})->name('admin.category.create');
     Route::get('/admin/categories/edit/{id}', [CategoryController::class, 'edit'])->name('admin.category.edit');
+    Route::post('/admin/categories/edit/{id}', [CategoryProductController::class, 'store'])->name('admin.catProduct.create');
     // Route::get('/admin/categories/{id}', [CategoryController::class, 'indexAutoLoadCategories'])->name('admin.category');
 
 });
