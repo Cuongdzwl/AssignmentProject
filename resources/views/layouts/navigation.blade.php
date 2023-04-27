@@ -31,8 +31,8 @@
         @if (Auth::check())
           {{-- Cart --}}
           <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-            <x-nav-link class="cart-link" href="{{ url('cart') }}">
-              <i class="fa-solid fa-cart-shopping"></i>Cart
+            <x-nav-link class="cart-link pb-0.5" href="{{ url('cart') }}">
+              <i class="fa-solid fa-cart-shopping text-base"></i>Cart
             </x-nav-link>
           </div>
 
