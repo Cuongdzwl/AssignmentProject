@@ -203,13 +203,7 @@ class CartController extends Controller
         $product_id = $request->product_id;
         
         $cart = Cart::where('user_id', '=', $user_id)->first();
-        $cart1 = CartProduct::where('product_id', '=', $product_id)->where('cart_ID', '=', $cart->id)->get();
-        return response()->json([
-            'success' => true,
-            'message' => $cart,
-            'message' => $cart1,
-        ], 200);
-
+        $cart1 = CartProduct::where('product_id', '=', $product_id)->where('cart_ID', '=', $cart->id)->delete();
         return response()->json([
             'success' => true,
             'message' => 'Product has been removed'
