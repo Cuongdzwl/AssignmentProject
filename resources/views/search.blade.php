@@ -2,29 +2,32 @@
 <x-app-layout>
   <section class="Show all product">
     <div class="container">
-      <h1 class="my-12 text-center text-4xl font-semibold">Products for keyword: <span class="italic">{{$keyword}}...</span></h1>
+      <a href="{{ route('product') }}" class="flex justify-center w-28 p-3 my-4 bg-black text-white transition-opacity hover:opacity-70">&lt; Back</a>
+      <p class="text-lg pb-2">Keyword: <span class="text-2xl font-semibold text-sky-700">{{ $keyword }}</span></p>
       <div class="row">
         <div id="add-to-cart-message"></div>
         @foreach ($products as $product)
-          <div class="col-2 pb-3">
+          <div class="col-12 col-md-6 col-lg-4 col-xl-2 pb-3">
             <a href="/products/{{ $product->id }}">
               <div class="card w-full border-none transition-shadow hover:shadow-2xl">
                 <img src="{{ asset($product->image) }}" alt="Product Image" class="h-60 border-none object-cover">
-                <div class="product-info mt-1 px-3">
-                  <p class="product-title line-clamp-2 text-ellipsis h-12 font-bold mt-1">{{ $product->name }}</p>
-                  <p class="product-price pt-2 font-light mb-3"> $ {{ $product->price }}</p>
+                <div>
+                  <p class="card-title line-clamp-2 h-12 text-ellipsis px-2">{{ $product->name }}</p>
+                  <p class="card-text pt-2 font-bold px-2">${{ $product->price }}</p>
                 </div>
               </div>
             </a>
-            <button data-id="{{ $product->id }}" class="add-to-cart bg-black py-1 text-white transition-opacity hover:opacity-70 w-full">Add to Cart</button>
+            <button data-id="{{ $product->id }}"
+              class="add-to-cart w-full bg-black py-1 text-white transition-opacity hover:opacity-70">Add to
+              Cart</button>
           </div>
         @endforeach
       </div>
-      @if ($products->links())
-        <div class="mt-4">
-          {{ $products->links() }}
-        </div>
-      @endif
     </div>
+    @if ($products->links())
+      <div class="mt-4">
+        {{ $products->links() }}
+      </div>
+    @endif      
   </section>
 </x-app-layout>
