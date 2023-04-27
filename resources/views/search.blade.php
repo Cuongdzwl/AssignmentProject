@@ -28,6 +28,6 @@
       <div class="mt-4">
         {{ $products->links() }}
       </div>
-    @endif
+    @endif      
   </section>
 </x-app-layout>

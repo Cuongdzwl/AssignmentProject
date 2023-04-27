@@ -23,7 +23,7 @@ class CartController extends Controller
     {
         // Authenticate
         $user = auth()->user();
-        $user_id= $user->id;
+        $user_id = $user->id;
 
         // return response()->json(["data" => $request->header('Authorization'),"id"=>$user]);
         // Building the query
@@ -41,16 +41,17 @@ class CartController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Something went wrong'
-            ],400);
+            ], 400);
         }
         $cart = CartController::getCart($user_id);
         // Building the cart
         return response()->json([
             'success' => true,
             'data' => $cart
-        ],200);
+        ], 200);
     }
-    public function indexAutoLoadCart(){
+    public function indexAutoLoadCart()
+    {
         $user_id = Auth::user()->id;
 
         // Building the query
@@ -67,7 +68,7 @@ class CartController extends Controller
         }
         $cart = CartController::getCart($user_id);
         // Building the cart
-        return view('cart.detail',compact('cart'));
+        return view('cart.detail', compact('cart'));
     }
     /**
      * Store a newly created resource in storage.
@@ -80,7 +81,7 @@ class CartController extends Controller
         return response()->json([
             'success' => false,
             'message' => 'Method unavailable'
-        ],400);
+        ], 400);
     }
 
     /**
@@ -94,7 +95,7 @@ class CartController extends Controller
         return response()->json([
             'success' => false,
             'message' => 'Method unavailable'
-        ],400);
+        ], 400);
     }
 
     /**
@@ -127,33 +128,34 @@ class CartController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Somthing went wrong'
-            ],400);
+            ], 400);
         }
         // Check the quantity 
         if (!isset($cart_new['quantity'])) {
             $cart_new['quantity'] = "1";
         }
 
-        $cart = CartProduct::where('product_id', '=', $cart_new['product_ID'])->where('cart_id', '=', $cart_id);
         // check if the product already exists
+        $cart = CartProduct::where('product_id', '=', $cart_new['product_ID'])->where('cart_id', '=', $cart_id);
         if ($cart->count() != 0) {
+            // remove the _method due to a bug
             unset($cart_new['_method']);
 
-            if(isset($cart_new['add_to_cart'])) {
-                if($cart_new['add_to_cart'] == true){
-                    $cart->increment('quantity',$cart_new['quantity']);
+            if (isset($cart_new['add_to_cart'])) {
+                if ($cart_new['add_to_cart'] == true) {
+                    $cart->increment('quantity', $cart_new['quantity']);
                 }
-            }else{
+            } else {
                 $cart->update($cart_new);
             }
         } else {
             CartProduct::create($cart_new);
-        }   
+        }
 
         return response()->json([
             'success' => true,
-            'message' => 'Cart updated successfully'
-        ],200);
+            'message' => 'Product added to cart successfully'
+        ], 200);
     }
 
     /**
@@ -174,12 +176,44 @@ class CartController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Product has been deleted'
-            ],200);
+            ], 200);
         }
         return response()->json([
             'success' => false,
             'message' => 'Product has not been deleted'
-        ],400);
+        ], 400);
+    }
+
+    public function deleteProduct(Request $request)
+    {
+        $user = auth()->user();
+        $user_id = $user->id;
+
+        $validator = Validator::make($request->all(), [
+            "product_id" => 'required|numeric|integer|min:0|exists:products,id',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => "Something went wrong"
+            ],400);
+        }
+
+        $product_id = $request->product_id;
+        
+        $cart = Cart::where('user_id', '=', $user_id)->first();
+        $cart1 = CartProduct::where('product_id', '=', $product_id)->where('cart_ID', '=', $cart->id)->get();
+        return response()->json([
+            'success' => true,
+            'message' => $cart,
+            'message' => $cart1,
+        ], 200);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Product has been removed'
+        ],200);
     }
 
     protected static function getCart($user_id)

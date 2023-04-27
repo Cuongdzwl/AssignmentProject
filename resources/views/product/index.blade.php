@@ -29,9 +29,9 @@
                 <a href="/products/{{ $product->id }}">
                   <div class="card w-full border-none transition-shadow hover:shadow-2xl">
                     <img src="{{ asset($product->image) }}" alt="Product Image" class="h-60 border-none object-cover">
-                    <div class="product-info">
-                      <p class="product-title line-clamp-2 h-12 text-ellipsis">{{ $product->name }}</p>
-                      <p class="product-price pt-2 font-bold"> $ {{ $product->price }}</p>
+                    <div class="product-info mt-1 px-3">
+                      <p class="product-title line-clamp-2 h-12 text-ellipsis font-bold mt-1">{{ $product->name }}</p>
+                      <p class="product-price pt-2 font-light mb-3"> $ {{ $product->price }}</p>
                     </div>
                   </div>
                 </a>
@@ -43,7 +43,6 @@
           </div>
         </div>
       </div>
-
       @if ($products->links())
         <div class="mt-4">
           {{ $products->links() }}
