@@ -61,11 +61,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/orders', [OrderController::class, 'indexAutoLoad'])->name('order');
     // User
     Route::get('/cart', [CartController::class, 'indexAutoLoadCart'])->name('cart.view');
-    Route::post('/cart', [OrderController::class, 'checkout'])->name('cart.view');
+    Route::post('/cart', [OrderController::class, 'checkout'])->name('cart.checkout');
     // Admin Settings
     Route::get('/admin', [HomeController::class, 'admin'])->name('admin');
     Route::get('/admin/orders', [OrderController::class, 'indexAutoLoadOrders'])->name('admin.order');
-    Route::put('/admin/orders/{id}', [OrderController::class, 'update'])->name('admin.order.update');
+    Route::put('/admin/orders/{id}', [OrderController::class, 'update'])->name('admin.order.edit');
 
     Route::get('/admin/products', [ProductController::class, 'indexAutoLoadProducts'])->name('admin.product');
     Route::get('/admin/products/create', function(){ return view('admin.products.create');})->name('admin.product.create');

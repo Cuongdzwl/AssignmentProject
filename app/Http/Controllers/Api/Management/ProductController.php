@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\Http\Resources\ProductResource;
+use App\Models\Category;
 use App\Models\CategoryProduct;
 use App\Models\Product;
 use GrahamCampbell\ResultType\Success;
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
-    static $PRODUCT_IN_A_PAGE = 16;
+    static $PRODUCT_IN_A_PAGE = 15;
     /**
      * Display a listing of the resource.
      *
@@ -34,7 +35,8 @@ class ProductController extends Controller
 
     public function indexAutoLoad(){
         $products = Product::paginate(ProductController::$PRODUCT_IN_A_PAGE);
-        return view('product.index',compact('products'));
+        $categories = Category::all();
+        return view('product.index',compact('products','categories'));
     }
     public function searchAutoLoad(Request $request)
     {
@@ -42,8 +44,7 @@ class ProductController extends Controller
             $products = Product::where("name", 'LIKE', '%' . $request->keyword . '%')->latest()->paginate(ProductController::$PRODUCT_IN_A_PAGE);
             return view('search',compact('products','keyword'));
         }
-        
-        return redirect('/');
+        // return redirect('/');
     }
     public function search($keyword)
     {

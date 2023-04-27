@@ -127,8 +127,10 @@ class OrderController extends Controller
         $order = Order::find($request->id);
         $order['status'] = $request->status;
         $order->save();
-        $orders = OrderController::getUser()->paginate(16);
-        return view('admin.orders.index', compact('orders'));
+        return redirect('/admin/orders');
+        // return response()->json([
+        //     'data' => $order
+        // ]);
     }
 
     /**

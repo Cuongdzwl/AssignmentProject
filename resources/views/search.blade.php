@@ -4,8 +4,8 @@
     <div class="container">
       <a href="{{ route('product') }}" class="flex justify-center w-28 p-3 my-4 bg-black text-white transition-opacity hover:opacity-70">&lt; Back</a>
       <p class="text-lg pb-2">Keyword: <span class="text-2xl font-semibold text-sky-700">{{ $keyword }}</span></p>
+      <hr class="mb-3">
       <div class="row">
-        <div id="add-to-cart-message"></div>
         @foreach ($products as $product)
           <div class="col-12 col-md-6 col-lg-4 col-xl-2 pb-3">
             <a href="/products/{{ $product->id }}">

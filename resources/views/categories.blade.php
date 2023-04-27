@@ -2,13 +2,13 @@
 <x-app-layout>
     @if ($category)
         <section class="Show all product">
-            <a href="{{ route('product') }}">Back</a>
             <div class="container">
-                <div>{{ $category->category_name }}</div>
-                <div>{{ $category->description }}</div>
+                <a href="{{ route('product') }}"
+                    class="flex justify-center w-28 p-3 my-4 bg-black text-white transition-opacity hover:opacity-70">&lt;Back</a>
+                <p class="text-2xl pb-2">{{ $category->category_name }}</p>
+                <p class="text-sm font-light pb-2">{{ $category->description }}</p>
+                <hr class="mb-3">
                 <div class="row">
-                    <div id="add-to-cart-message"></div>
-
                     @foreach ($products as $product)
                         <div class="col-md-4">
                             <div class="card">
