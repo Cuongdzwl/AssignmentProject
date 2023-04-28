@@ -40,10 +40,12 @@
                 </div>
             </div>
             <h1 class="text-3xl font-semibold text-center text-gray-900">Products in Category</h1>
-            <form id="product_category">
-                <input type="hidden" id="add_cat_ID" value="{{ $category->id }}">
-                <input type="number" id="add_product_ID" required>
-                <button type="button" id="add_product_category" class="rounded-md border border-transparent bg-green-400 px-4 py-2 text-s font-semibold text-white hover:bg-green-300">Add</button>
+            <form  method="post" id="product_category">
+                @csrf
+                <input type="hidden" name ="cat_ID" id="cat_ID" value="{{ $category->id }}">
+                <input type="number" name ="product_ID" id="product_ID" required>
+                <button type="submit"
+                 class="rounded-md border border-transparent bg-green-400 px-4 py-2 text-s font-semibold text-white hover:bg-green-300">Add</button>
             </form>
             <div id="alert_product_category"></div>
             <div class="overflow-x-auto">
