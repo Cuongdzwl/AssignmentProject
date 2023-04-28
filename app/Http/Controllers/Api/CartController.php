@@ -119,7 +119,7 @@ class CartController extends Controller
         $cart_new = $request->all();
         $cart_new['cart_ID'] = $cart_id;
 
-        // Validate 
+        // Validate
         $validator = Validator::make($request->all(), [
             'product_ID' => 'required|integer|min:0',
             'quantity' => 'integer|min:0'
@@ -130,7 +130,7 @@ class CartController extends Controller
                 'message' => 'Somthing went wrong'
             ], 400);
         }
-        // Check the quantity 
+        // Check the quantity
         if (!isset($cart_new['quantity'])) {
             $cart_new['quantity'] = "1";
         }
@@ -201,7 +201,7 @@ class CartController extends Controller
         }
 
         $product_id = $request->product_id;
-        
+
         $cart = Cart::where('user_id', '=', $user_id)->first();
         $cart1 = CartProduct::where('product_id', '=', $product_id)->where('cart_ID', '=', $cart->id)->delete();
         return response()->json([
@@ -215,7 +215,7 @@ class CartController extends Controller
         return DB::table('carts')->where('user_id', '=', $user_id)
             ->leftJoin('cart_product', 'cart_product.cart_id', '=', 'carts.id')
             ->leftJoin('products', 'cart_product.product_id', '=', 'products.id')
-            ->select('cart_product.product_id', 'cart_product.quantity', 'products.name', 'products.image', 'products.price')
+            ->select('cart_product.product_id', 'cart_product.id', 'cart_product.quantity', 'products.name', 'products.image', 'products.price')
             ->get();
     }
 }

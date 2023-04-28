@@ -92,10 +92,11 @@
                              @endif
                              @if ($order->status == 1)
                                  <td class="py-2">
-                                     <form action="/admin/orders/{{ $order->id }}" method="post">
-                                         @csrf
-                                         @method('put')
-                                         <input type="hidden" name="status" id="status" value="2">
+                                     <form action="/admin/orders/{{$order->id}}" method="post">
+                                        @csrf
+                                        @method('put')
+                                        <input type="hidden" name="status" id="status" value="2">
+                                        <input type="hidden" name="id" id="id" value="{{$order->id}}">
                                          <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" type="submit">Confirm Delivered</button>
                                      </form>
                                  </td>
