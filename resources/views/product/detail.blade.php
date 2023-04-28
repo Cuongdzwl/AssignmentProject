@@ -11,7 +11,7 @@
                     <div class="col-md-6">
                         <h1 class="text-4xl font-bold">{{ $product->name }}</h1>
                         <p class="pb-2 text-sm font-thin text-gray-500">
-                            @foreach ($categories as $categories)
+                            @foreach ($categories as $category)
                                 <span><a
                                         href="/categories/{{ $category->id }}">{{ $category->category_name }}</a>{{ __(',') }}</span>
                             @endforeach
