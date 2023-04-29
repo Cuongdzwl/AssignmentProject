@@ -74,6 +74,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/categories', [CategoryController::class, 'indexAutoLoadCategories'])->name('admin.category');
     Route::get('/admin/categories/create',function(){ return view('admin.categories.create');})->name('admin.category.create');
     Route::get('/admin/categories/edit/{id}', [CategoryController::class, 'edit'])->name('admin.category.edit');
+    Route::post('/admin/categories/edit/{id}', [CategoryProductController::class, 'store'])->name('admin.catProduct.create');
     // Route::get('/admin/categories/{id}', [CategoryController::class, 'indexAutoLoadCategories'])->name('admin.category');
 
 });

@@ -24,7 +24,7 @@ class CategoryProductController extends Controller
         );
     }
     public function indexAutoLoad($id)
-    {  
+    {
         $category = Category::find($id);
         $products = CategoryProductController::getProducts($id)->paginate(16);
         return view('categories', compact('products','category'));
@@ -50,19 +50,25 @@ class CategoryProductController extends Controller
             ]);
         }
         // Check if product already exists in the category retur
-        if(DB::table('category_product')->where("cat_ID","=", $request->cat_ID)->first()->product_ID === $request->product_ID){
-            return response()->json([
-                'success' => false,
-                'message' => 'Product already exists in category',
-            ]);
-        }
+        // if(DB::table('category_product')->where("cat_ID","=", $request->cat_ID)->first()->product_ID === $request->product_ID){
+        //     return response()->json([
+        //         'success' => false,
+        //         'message' => 'Product already exists in category',
+        //     ]);
+        // }
         //
-        return response()->json(DB::table('category_product')->where("cat_ID", "=", $request->cat_ID)->first()->product_ID === $request->product_ID);
-        $categoryProduct = CategoryProduct::create($request->all());
-        return response()->json([
-            'success' => true,
-            'data' => $categoryProduct,
-        ], 201);
+        $check_catProduct = CategoryProduct::where('cat_ID', '=' ,$request->cat_ID, 'AND')->where( 'product_ID','=',$request->product_ID)->get();
+            if(count($check_catProduct)==0)
+                {
+                    CategoryProduct::create($request->all());
+                }
+
+                // return response()->json(DB::table('category_product')->where("cat_ID", "=", $request->cat_ID)->first()->product_ID === $request->product_ID);
+                $category = Category::find($request->cat_ID);
+                $products = CategoryProductController::getProducts($request->cat_ID)->paginate(16);
+                return view('admin.categories.edit', compact('category', 'products'));
+
+
     }
 
     /**

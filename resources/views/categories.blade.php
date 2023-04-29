@@ -10,18 +10,22 @@
                 <hr class="mb-3">
                 <div class="row">
                     @foreach ($products as $product)
-                        <div class="col-md-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <img src="{{ asset($product->image) }}" alt="Product Image" class="img-fluid">
-                                    <h5 class="card-title">{{ $product->name }}</h5>
-                                    <p class="card-text">{{ $product->description }}</p>
-                                    <p class="card-text">Price: ${{ $product->price }}</p>
-                                    <a href="{{ route('product.detail', $product->id) }}" data-id="{{ $product->id }}"
-                                        class="add-to-cart btn btn-primary">Add to
-                                        Cart</a>
+                        <div class="col-12 col-md-6 col-lg-4 col-xl-2 pb-3">
+                            <a href="/products/{{ $product->product_ID }}">
+                                <div class="card w-full border-none transition-shadow hover:shadow-2xl">
+                                    <img src="{{ asset($product->image) }}" alt="Product Image"
+                                        class="h-60 border-none object-cover">
+                                    <div>
+                                        <p class="card-title line-clamp-2 h-12 text-ellipsis px-2">{{ $product->name }}
+                                        </p>
+                                        <p class="card-text pt-2 font-bold px-2">${{ $product->price }}</p>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
+                            <button data-id="{{ $product->product_ID }}"
+                                class="add-to-cart w-full bg-black py-1 text-white transition-opacity hover:opacity-70">Add
+                                to
+                                Cart</button>
                         </div>
                     @endforeach
                 </div>
