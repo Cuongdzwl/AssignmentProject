@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         // Create role models
         Role::create(['name' => 'admin']);
         Role::create(['name' => 'user']);
+        Role::create(['name' => 'mod']);
         // Generate admin accounts
         $user = \App\Models\User::create([
             'name' => 'Administrator',
@@ -28,6 +29,13 @@ class DatabaseSeeder extends Seeder
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             ]);
         $user->assignRole('admin');
+        $user = \App\Models\User::create([
+            'name' => 'Moderator',
+            'email' => 'mod@example.com',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+        ]);
+        $user->assignRole('mod');
         // Dummy data
         Category::create(['category_name' => 'Featured products','description'=>'New recommendations']);
         Category::create(['category_name' => 'Summer 2023','description'=>'New recommendations']);

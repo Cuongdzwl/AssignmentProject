@@ -28,7 +28,6 @@ class isMod
             'success' => false,
             'message' => 'Unauthorized',
             'mod' => $id
-
         ]);
     }
 }
