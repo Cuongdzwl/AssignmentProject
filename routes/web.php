@@ -45,9 +45,9 @@ Route::get('/products', [ProductController::class, 'indexAutoLoad'])->name('prod
 Route::get('/products/{id}', [ProductController::class, 'display'])->name('product.detail');
 Route::get('/about', [HomeController::class, 'about'])->name('about');
 
-Route::fallback(function () {
-    return view('errors.404');
-});
+// Route::fallback(function () {
+//     return view('errors.404');
+// });
 //--------------------------------------------------------------------------
 // Authentication Routes
 //--------------------------------------------------------------------------

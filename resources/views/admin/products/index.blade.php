@@ -27,7 +27,7 @@
                               <tr id="item-{{ $product->id }}">
                                   <td class="px-2"><b>{{ $product->id }}</b></td>
                                   <td><a href="">{{ $product->name }}</a></td>
-                                  <td><img src="{{asset($product->image)}}" alt="Image Product"></td>
+                                  <td><img src="{{asset($product->image)}}" width="150px" alt="Image Product"></td>
                                   <td>{{ $product->created_at }}</td>
                                   <td>{{ $product->updated_at }}</td>
                                   <td>$ {{ $product->price }}</td>

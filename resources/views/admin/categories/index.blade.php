@@ -25,8 +25,8 @@
                              @foreach ($categories as $category)
                                  <tr id="item-{{ $category->id }}">
                                      <td class="px-2"><b>{{ $category->id }}</b></td>
-                                     <td class="px-2"><b>{{ $category->description }}</b></td>
-                                     <td><a href="">{{ $category->category_name }}</a></td>
+                                     <td class="px-2"><b>{{ $category->category_name     }}</b></td>
+                                     <td><a href="">{{ $category->description }}</a></td>
                                      <td>{{ $category->created_at }}</td>
                                      <td>{{ $category->updated_at }}</td>
                                      <td class="py-2">

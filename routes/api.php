@@ -35,6 +35,7 @@ Route::apiResource('categoryproducts', CategoryProductController::class);
 
 Route::get('/products', [ProductController::class, 'index']);
 
+
 Route::group(
     ['middleware' => 'auth:sanctum'],
     function () {
@@ -43,21 +44,42 @@ Route::group(
         Route::put('cart', [CartController::class, 'update']);
         Route::delete('cart', [CartController::class, 'destroy']);
         Route::delete('cart/delete', [CartController::class, 'deleteProduct']);
-        
+
         Route::group(
-            ['middleware' => 'isAdmin'],
+            [
+                'middleware' => 'isAdmin',
+            ],
             function () {
                 Route::post('products', [ProductController::class, 'store']);
-                Route::delete('products/{product}', [ProductController::class, 'update']);
-                Route::patch('products/{product}', [ProductController::class, 'update']);
+                Route::patch('/products/{product}', [ProductController::class, 'update'])->middleware('isAdmin');
+                Route::delete('/products/{product}', [ProductController::class, 'destroy'])->middleware('isAdmin');
 
                 Route::post('categories', [CategoryController::class, 'store']);
-                Route::patch('categories/{category}', [CategoryController::class, 'update']);
-                Route::delete('categories/{category}', [CategoryController::class, 'destroy']);
+                Route::patch('categories/{category}', [
+                    CategoryController::class, 'update'
+                ])->middleware('isAdmin');
+                Route::delete('categories/{category}', [
+                    CategoryController::class, 'destroy'
+                ])->middleware('isAdmin');
 
                 Route::apiResource('users', UserController::class);
                 Route::apiResource('orders', OrderController::class);
                 Route::apiResource('orderProducts', OrderProductController::class);
-            });
+            }
+        );
+        Route::group(
+            [
+                'middleware' => 'isMod'
+            ],
+            function () {
+                Route::post('products', [ProductController::class, 'store']);
+
+                Route::post('categories', [CategoryController::class, 'store']);
+
+                Route::apiResource('users', UserController::class);
+                Route::apiResource('orders', OrderController::class);
+                Route::apiResource('orderProducts', OrderProductController::class);
+            }
+        );
     }
 );

@@ -3,11 +3,10 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\DB;
-use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
-class isAdmin
+class isMod
 {
     /**
      * Handle an incoming request.
@@ -20,14 +19,16 @@ class isAdmin
     {
         $id = auth()->user()->id;
         if ($id) {
-            if (DB::table('model_has_roles')->leftJoin('roles', 'model_has_roles.role_id', '=', 'roles.id')->where('model_id', $id)->where('roles.name', '=', 'admin')->first()) {
+            if (DB::table('model_has_roles')->leftJoin('roles', 'model_has_roles.role_id', '=', 'roles.id')->where('model_id', $id)->where('roles.name', '=', 'mod')->first()) {
                 return $next($request);
+                // return response()->json(DB::table('model_has_roles')->leftJoin('roles', 'model_has_roles.role_id', '=', 'roles.id')->where('model_id', $id)->where('roles.name', '=', 'mod')->get());
             }
         }
         return response()->json([
             'success' => false,
             'message' => 'Unauthorized',
-            'admin' => $id
+            'mod' => $id
+
         ]);
     }
 }
